@@ -27,7 +27,8 @@
         android:layout_below="@+id/logoimage"
         android:textSize="50sp"
         android:text="Login"
-        android:id="@+id/loginbutton"/>
+        android:id="@+id/loginbutton"
+        android:onClick="loginClick"/>
     <Button
         android:layout_width="200dp"
         android:layout_height="60dp"
@@ -35,7 +36,8 @@
         android:layout_toRightOf="@+id/loginbutton"
         android:id="@+id/registerbutton"
         android:text="Register"
-        android:textSize="50sp"/>
+        android:textSize="50sp"
+        android:onClick="registerClick"/>
 
 
 
