@@ -45,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
                 EditText emailEditText=(EditText)findViewById(R.id.usernameedittext);
                 EditText passwordEditText=(EditText)findViewById(R.id.passwordedittext);
                 EditText nameEditText=(EditText)findViewById(R.id.nameedittext);
-                URL url = new URL("http://helloworld.nickendo.com/register");
+                URL url = new URL("http://helloworldapi.nickendo.com/register");
                 HttpURLConnection urlConnection=(HttpURLConnection)url.openConnection();
                 JSONObject user=new JSONObject();
                 user.put("email", emailEditText.getText().toString());
