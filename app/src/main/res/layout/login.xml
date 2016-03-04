@@ -3,5 +3,58 @@
     android:background="@color/transparentmaroon"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Email"
+    android:layout_centerHorizontal="true"
+    android:textSize="40sp"
+    android:textColor="@color/transparentblack"
+    android:id="@+id/emailtextview"
+    android:paddingTop="50dp"
+    />
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:background="@color/darkermaroon"
+        android:layout_below="@+id/emailtextview"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/emailedittext"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password"
+        android:textSize="40sp"
+        android:textColor="@color/transparentblack"
+        android:layout_below="@+id/emailedittext"
+        android:paddingTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/passwordtextview"
+        />
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/passwordtextview"
+        android:background="@color/darkermaroon"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/passwordedittext"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:id="@+id/space"
+        android:layout_below="@id/passwordedittext"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="40dp"
+        android:layout_below="@+id/space"
+        android:background="@color/darkermaroon"
+        android:layout_centerHorizontal="true"
+        android:text="Login"
+        android:textSize="40sp"
+        />
 
 </RelativeLayout>

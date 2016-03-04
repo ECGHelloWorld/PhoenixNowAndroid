@@ -40,11 +40,10 @@ public class RegisterActivity extends AppCompatActivity {
     public class MyThread extends Thread{
         String message;
         int code;
+        String token;
         public void run(){
             try {
-                EditText emailEditText=(EditText)findViewById(R.id.usernameedittext);
-                EditText passwordEditText=(EditText)findViewById(R.id.passwordedittext);
-                EditText nameEditText=(EditText)findViewById(R.id.nameedittext);
+
                 URL url = new URL("http://helloworldapi.nickendo.com/register");
                 HttpURLConnection urlConnection=(HttpURLConnection)url.openConnection();
                 JSONObject user=new JSONObject();
@@ -60,6 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
                 os.close();
                 code=urlConnection.getResponseCode();
                 message=urlConnection.getResponseMessage();
+                token=urlConnection.getHeaderField("Authentication");
                 Log.d("responsetime","reponse");
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -72,13 +72,20 @@ public class RegisterActivity extends AppCompatActivity {
         public String getReturned(){
             return message;
         }
-        public int getCode(){return code;}
+        public int getCode(){
+            return code;
+        }
+        public String getToken(){
+            return token;
+        }
     }
 public void registerClick(View view){
     EditText passwordEditText=(EditText)findViewById(R.id.passwordedittext);
     EditText confirmPasswordEditText=(EditText)findViewById(R.id.confirmpasswordedittext);
+    EditText emailEditText=(EditText)findViewById(R.id.usernameedittext);
+    EditText nameEditText=(EditText)findViewById(R.id.nameedittext);
     TextView space=(TextView)findViewById(R.id.space);
-    MyThread thread=new MyThread();
+    Backend backend=new Backend()
     if(confirmPasswordEditText.getText().toString().equals(passwordEditText.getText().toString())){
         thread.start();
         long start=System.currentTimeMillis();
@@ -94,6 +101,7 @@ public void registerClick(View view){
     }else{
         space.setText("Passwords must match");
     }
+    space.setText(thread.getToken());
 }
 
 
