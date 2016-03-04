@@ -13,11 +13,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.titlepage);
     }
-    public void loginClick(View view){
+    public void loginActivity(View view){
         Intent intent=new Intent(MainActivity.this,LoginActivity.class);
         startActivity(intent);
     }
-    public void registerClick(View view){
+    public void registerActivity(View view){
         Intent intent =new Intent(MainActivity.this,RegisterActivity.class);
         startActivity(intent);
     }
