@@ -87,15 +87,13 @@ public void registerClick(View view){
         }
         if(thread.getReturned().equals("OK")&&thread.getCode()==200){
             space.setText("Registered!");
-        }else if(thread.getReturned().equalsIgnoreCase("bad gateway")&&thread.getCode()==502){
+        }else if(thread.getReturned().equalsIgnoreCase("conflict")&&thread.getCode()==409){
             space.setText("User already registered");
         }
         Log.d("retrieved time", "retrieved time");
     }else{
         space.setText("Passwords must match");
     }
-
-
 }
 
 
