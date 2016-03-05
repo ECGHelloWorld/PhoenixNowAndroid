@@ -1,5 +1,6 @@
 package com.weebly.helloworldclub.phoenixnow;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.JsonReader;
@@ -53,9 +54,10 @@ public void registerClick(View view){
         }
         if(backend.getReturned().equals("OK")&&backend.getCode()==200){
             space.setText("Registered!");
+            Intent intent=new Intent(RegisterActivity.this,MainActivity.class);
+            startActivity(intent);
         }else if(backend.getReturned().equalsIgnoreCase("conflict")&&backend.getCode()==409){
             space.setText("User already registered");
-            Log.d("l",backend.getReturned());
         }
     }else{
         space.setText("Passwords must match");

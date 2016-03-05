@@ -25,10 +25,19 @@
                 android:value="com.weebly.helloworldclub.phoenixnow.MainActivity" />
         </activity>
         <activity
-            android:name=".RegisterActivity"
-            android:label="@string/title_activity_register"
+        android:name=".RegisterActivity"
+        android:label="@string/title_activity_register"
+        android:parentActivityName=".MainActivity"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.weebly.helloworldclub.phoenixnow.MainActivity" />
+    </activity>
+        <activity
+            android:name=".SigninActivity"
+            android:label="@string/title_activity_signin"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.weebly.helloworldclub.phoenixnow.MainActivity" />

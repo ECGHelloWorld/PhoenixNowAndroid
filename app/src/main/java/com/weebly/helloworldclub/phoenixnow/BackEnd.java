@@ -16,11 +16,12 @@ import java.net.URL;
  */
 public class BackEnd {
     EditText email;
-    EditText name;
+   EditText name;
     EditText password;
+    static String emailstring;
     String message;
     int code;
-    String token;
+    static String token;
     public BackEnd(EditText emailEditText, EditText passwordEditText, EditText nameEditText) {
         email=emailEditText;
         name=nameEditText;
@@ -52,6 +53,7 @@ public class BackEnd {
                 code=urlConnection.getResponseCode();
                 message=urlConnection.getResponseMessage();
                 token=urlConnection.getHeaderField("Authorization");
+                emailstring=email.getText().toString();
             }catch(java.net.MalformedURLException e){
                 e.printStackTrace();
             }catch(org.json.JSONException e){
@@ -83,6 +85,7 @@ public class BackEnd {
                 code = urlConnection.getResponseCode();
                 message = urlConnection.getResponseMessage();
                 token=urlConnection.getHeaderField("Authorization");
+                emailstring=email.getText().toString();
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (java.io.IOException e) {
@@ -102,6 +105,7 @@ public class BackEnd {
     public String getToken(){
         return token;
     }
+    public String getEmail(){return emailstring;}
 
 
 }

@@ -1,6 +1,7 @@
 package com.weebly.helloworldclub.phoenixnow;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -30,12 +31,11 @@ public class LoginActivity extends AppCompatActivity{
         }
         if(backend.getReturned().equals("OK")&&backend.getCode()==200){
             space.setText("Logged in!");
+            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+            startActivity(intent);
         }else if(backend.getReturned().equalsIgnoreCase("unauthorized")&&backend.getCode()==401){
             space.setText("User not in system");
-            Log.d("l", backend.getReturned());
         }
-        Log.d("l",backend.getReturned());
-        Log.d("l",Integer.toString(backend.getCode()));
     }
 
 }
