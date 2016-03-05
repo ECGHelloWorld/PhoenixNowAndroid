@@ -3,7 +3,9 @@ package com.weebly.helloworldclub.phoenixnow;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 
@@ -15,6 +17,25 @@ public class LoginActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+    }
+    public void loginClick(View view){
+        EditText emailEditText=(EditText)findViewById(R.id.emailedittext);
+        EditText passwordEditText=(EditText)findViewById(R.id.passwordedittext);
+        TextView space=(TextView)findViewById(R.id.space);
+        BackEnd backend=new BackEnd(emailEditText,passwordEditText,null);
+        backend.login();
+        long start=System.currentTimeMillis();
+        while(System.currentTimeMillis()<start+1000){
+
+        }
+        if(backend.getReturned().equals("OK")&&backend.getCode()==200){
+            space.setText("Logged in!");
+        }else if(backend.getReturned().equalsIgnoreCase("unauthorized")&&backend.getCode()==401){
+            space.setText("User not in system");
+            Log.d("l", backend.getReturned());
+        }
+        Log.d("l",backend.getReturned());
+        Log.d("l",Integer.toString(backend.getCode()));
     }
 
 }

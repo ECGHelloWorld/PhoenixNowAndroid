@@ -18,22 +18,53 @@ public class BackEnd {
     EditText email;
     EditText name;
     EditText password;
+    String message;
+    int code;
+    String token;
     public BackEnd(EditText emailEditText, EditText passwordEditText, EditText nameEditText) {
         email=emailEditText;
         name=nameEditText;
         password=passwordEditText;
     }
 
-    public void Register(EditText email, EditText password, EditText name) {
+    public void register() {
         RegisterThread thread = new RegisterThread();
         thread.start();
     }
+    public void login(){
+        LoginThread thread=new LoginThread();
+        thread.start();
+    }
+    public class LoginThread extends Thread{
+        public void run(){
+            try {
+                URL url = new URL("http://helloworldapi.nickendo.com/login");
+                HttpURLConnection urlConnection=(HttpURLConnection)url.openConnection();
+                JSONObject user=new JSONObject();
+                user.put("email",email.getText().toString());
+                user.put("password",password.getText().toString());
+                urlConnection.setDoOutput(true);
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                urlConnection.setRequestProperty("Accept", "application/json");
+                OutputStream os=urlConnection.getOutputStream();
+                os.write(user.toString().getBytes());
+                code=urlConnection.getResponseCode();
+                message=urlConnection.getResponseMessage();
+                token=urlConnection.getHeaderField("Authorization");
+            }catch(java.net.MalformedURLException e){
+                e.printStackTrace();
+            }catch(org.json.JSONException e){
+                e.printStackTrace();
+            }catch(java.net.ProtocolException e){
+                e.printStackTrace();
+            }catch(java.io.IOException e){
+                e.printStackTrace();
+            }
+        }
+    }
 
     public class RegisterThread extends Thread {
-
-        String message;
-        int code;
-
         public void run() {
             try {
                 URL url = new URL("http://helloworldapi.nickendo.com/register");
@@ -51,7 +82,7 @@ public class BackEnd {
                 os.close();
                 code = urlConnection.getResponseCode();
                 message = urlConnection.getResponseMessage();
-                Log.d("responsetime", "reponse");
+                token=urlConnection.getHeaderField("Authorization");
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (java.io.IOException e) {
@@ -60,7 +91,7 @@ public class BackEnd {
 
             }
         }
-
+    }
         public String getReturned() {
             return message;
         }
@@ -68,7 +99,10 @@ public class BackEnd {
         public int getCode() {
             return code;
         }
+    public String getToken(){
+        return token;
     }
+
 
 }
 

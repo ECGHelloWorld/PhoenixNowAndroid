@@ -37,71 +37,30 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
     }
-    public class MyThread extends Thread{
-        String message;
-        int code;
-        String token;
-        public void run(){
-            try {
 
-                URL url = new URL("http://helloworldapi.nickendo.com/register");
-                HttpURLConnection urlConnection=(HttpURLConnection)url.openConnection();
-                JSONObject user=new JSONObject();
-                user.put("email", emailEditText.getText().toString());
-                user.put("name", nameEditText.getText().toString());
-                user.put("password", passwordEditText.getText().toString());
-                urlConnection.setDoOutput(true);
-                urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-                urlConnection.setRequestProperty("Accept", "application/json");
-                urlConnection.setRequestMethod("POST");
-                OutputStream os=urlConnection.getOutputStream();
-                os.write(user.toString().getBytes());
-                os.close();
-                code=urlConnection.getResponseCode();
-                message=urlConnection.getResponseMessage();
-                token=urlConnection.getHeaderField("Authentication");
-                Log.d("responsetime","reponse");
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }catch(java.io.IOException e){
-                e.printStackTrace();
-            }catch(org.json.JSONException e){
-
-            }
-        }
-        public String getReturned(){
-            return message;
-        }
-        public int getCode(){
-            return code;
-        }
-        public String getToken(){
-            return token;
-        }
-    }
 public void registerClick(View view){
     EditText passwordEditText=(EditText)findViewById(R.id.passwordedittext);
     EditText confirmPasswordEditText=(EditText)findViewById(R.id.confirmpasswordedittext);
     EditText emailEditText=(EditText)findViewById(R.id.usernameedittext);
     EditText nameEditText=(EditText)findViewById(R.id.nameedittext);
     TextView space=(TextView)findViewById(R.id.space);
-    Backend backend=new Backend()
+    BackEnd backend=new BackEnd(emailEditText,passwordEditText,nameEditText);
     if(confirmPasswordEditText.getText().toString().equals(passwordEditText.getText().toString())){
-        thread.start();
+        backend.register();
         long start=System.currentTimeMillis();
         while(System.currentTimeMillis()<start+1000){
 
         }
-        if(thread.getReturned().equals("OK")&&thread.getCode()==200){
+        if(backend.getReturned().equals("OK")&&backend.getCode()==200){
             space.setText("Registered!");
-        }else if(thread.getReturned().equalsIgnoreCase("conflict")&&thread.getCode()==409){
+        }else if(backend.getReturned().equalsIgnoreCase("conflict")&&backend.getCode()==409){
             space.setText("User already registered");
+            Log.d("l",backend.getReturned());
         }
-        Log.d("retrieved time", "retrieved time");
     }else{
         space.setText("Passwords must match");
     }
-    space.setText(thread.getToken());
+
 }
 
 
