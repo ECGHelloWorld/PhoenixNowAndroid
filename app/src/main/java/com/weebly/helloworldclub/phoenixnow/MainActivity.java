@@ -1,7 +1,13 @@
 package com.weebly.helloworldclub.phoenixnow;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.location.Location;
+import android.location.LocationManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,32 +18,44 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        BackEnd backend=new BackEnd(null,null,null);
-        if(backend.getToken()==null){
+        BackEnd backend = new BackEnd(null, null, null);
+        if (backend.getToken() == null) {
             setContentView(R.layout.titlepage);
-        } else if(backend.getToken()!=null){
+        } else if (backend.getToken() != null) {
             setContentView(R.layout.homepage);
-            getSupportActionBar().setSubtitle("Signed in with \""+backend.getEmail()+"\"");
-            Log.d("MainActivityToken",backend.getToken());
+            Log.d("MainActivityToken", backend.getToken());
         }
 
-        TextView txt = (TextView) findViewById(R.id.phoenix);
-        Typeface font = Typeface.createFromAsset(getAssets(), "BrushScriptStd.otf");
-        txt.setTypeface(font);
 
 
     }
-    public void loginActivity(View view){
-        Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+
+    public void loginActivity(View view) {
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
     }
-    public void registerActivity(View view){
-        Intent intent =new Intent(MainActivity.this,RegisterActivity.class);
+
+    public void registerActivity(View view) {
+        Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
         startActivity(intent);
     }
-    public void signIn(){
-        BackEnd backend=new BackEnd();
-        backend.signIn();
+    public void signIn(View view) {
+        BackEnd backend = new BackEnd();
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        double longitude = location.getLongitude();
+        double latitude = location.getLatitude();
+        backend.signIn(latitude,longitude);
     }
 
 }

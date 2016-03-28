@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.EditText;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.OutputStream;
@@ -22,6 +23,8 @@ public class BackEnd {
     String message;
     int code;
     static String token;
+    double latitude;
+    double longitude;
     public BackEnd(EditText emailEditText, EditText passwordEditText, EditText nameEditText) {
         email=emailEditText;
         name=nameEditText;
@@ -39,8 +42,34 @@ public class BackEnd {
         LoginThread thread=new LoginThread();
         thread.start();
     }
-    public void signIn(){
-
+    public void signIn(double lat,double lon){
+        latitude=lat;
+        longitude=lon;
+        SigninThread thread=new SigninThread();
+        thread.start();
+    }
+    public class SigninThread extends Thread{
+        public void run(){
+            try {
+                URL url=new URL("http://helloworldapi.nickendo.com/events");
+                HttpURLConnection urlConnection=(HttpURLConnection)url.openConnection();
+                JSONObject json=new JSONObject();
+                json.put("lat",latitude);
+                json.put("lon",longitude);
+                urlConnection.setDoOutput(true);
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                urlConnection.setRequestProperty("Accept", "application/json");
+                OutputStream os=urlConnection.getOutputStream();
+                os.write(json.toString().getBytes());
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }catch(java.io.IOException e){
+                e.printStackTrace();
+            }catch(JSONException e){
+             e.printStackTrace();
+            }
+        }
     }
     public class LoginThread extends Thread{
         public void run(){
