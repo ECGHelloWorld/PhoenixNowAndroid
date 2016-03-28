@@ -3,58 +3,91 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/transparentmaroon"
+    android:background="@drawable/titlepagebackground"
+    android:orientation="vertical"
     tools:context="com.weebly.helloworldclub.phoenixnow.MainActivity">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/phoenix"
-        android:text="PHOENIX"
-        android:textSize="80dp"
-        android:textStyle="bold"
-        android:textColor="@color/transparentblack"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/now"
-        android:textColor="@color/transparentblack"
-        android:text="NOW"
-        android:layout_below="@+id/phoenix"
-        android:textSize="70dp"
-        android:textStyle="normal"/>
-    <ImageView
-        android:layout_width="500dp"
-        android:layout_height="200dp"
-        android:id="@+id/logoimage"
-        android:layout_below="@+id/now"
-        android:src="@drawable/logoimage"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/logoimage"
-        android:layout_centerHorizontal="true"
-        android:textSize="40sp"
-        android:text="Login"
-        android:id="@+id/loginbutton"
-        android:onClick="loginActivity"
-        android:background="@color/darkermaroon"
-        android:padding="10dp"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/loginbutton"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/registerbutton"
-        android:text="Register"
-        android:textSize="40sp"
-        android:onClick="registerActivity"
-        android:background="@color/darkermaroon"
-        android:padding="10dp"
-        />
 
+    <ImageView
+        android:id="@+id/logoimage"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/officiallogo" />
+
+    <TextView
+        android:id="@+id/slogan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:layout_below="@id/logoimage"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:text="The official app of ECG."
+        android:textColor="@android:color/black" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:background="@drawable/roundbutton"
+        android:layout_below="@id/slogan"
+        android:text="Log In"
+        android:layout_marginTop="32dp"
+        android:layout_centerInParent="true"
+        android:textAllCaps="false"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:background="@drawable/roundbutton"
+        android:layout_below="@id/loginButton"
+        android:text="Register"
+        android:layout_marginTop="32dp"
+        android:layout_centerInParent="true"
+        android:textAllCaps="false"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+
+
+    <!--   <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="50dp"
+           android:layout_alignParentBottom="true"
+           android:background="@color/colorPrimaryDark"
+           android:orientation="horizontal">
+
+           <Button
+               android:id="@+id/loginButton"
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:background="?android:attr/selectableItemBackground"
+               android:text="Log In"
+               android:textAllCaps="false"
+               android:textAppearance="?android:attr/textAppearanceMedium"
+               android:textColor="@android:color/white"
+               android:textStyle="bold" />
+
+           <Button
+               android:id="@+id/registerButton"
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:background="?android:attr/selectableItemBackground"
+               android:text="Register"
+               android:textAllCaps="false"
+               android:textAppearance="?android:attr/textAppearanceMedium"
+               android:textColor="@android:color/white"
+               android:textStyle="bold" />
+
+       </LinearLayout> -->
 
 
 </RelativeLayout>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/transparentmaroon"
+    android:background="@drawable/titlepagebackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 <TextView
@@ -11,8 +11,7 @@
     android:textSize="40sp"
     android:textColor="@color/transparentblack"
     android:id="@+id/emailtextview"
-    android:paddingTop="50dp"
-    />
+    android:paddingTop="50dp" />
     <EditText
         android:layout_width="300dp"
         android:layout_height="40dp"
