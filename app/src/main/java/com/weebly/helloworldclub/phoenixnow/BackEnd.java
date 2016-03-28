@@ -36,6 +36,9 @@ public class BackEnd {
         LoginThread thread=new LoginThread();
         thread.start();
     }
+    public void signIn(){
+
+    }
     public class LoginThread extends Thread{
         public void run(){
             try {
