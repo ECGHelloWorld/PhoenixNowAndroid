@@ -62,8 +62,5 @@ public void registerClick(View view){
     }else{
         space.setText("Passwords must match");
     }
-
 }
-
-
 }
