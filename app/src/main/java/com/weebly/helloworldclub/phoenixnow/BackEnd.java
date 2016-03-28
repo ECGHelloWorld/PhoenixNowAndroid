@@ -27,6 +27,9 @@ public class BackEnd {
         name=nameEditText;
         password=passwordEditText;
     }
+    public BackEnd(){
+
+    }
 
     public void register() {
         RegisterThread thread = new RegisterThread();
