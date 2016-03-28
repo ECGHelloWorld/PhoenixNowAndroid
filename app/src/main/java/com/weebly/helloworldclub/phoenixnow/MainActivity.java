@@ -21,6 +21,10 @@ public class MainActivity extends AppCompatActivity {
             Log.d("MainActivityToken",backend.getToken());
         }
 
+        TextView txt = (TextView) findViewById(R.id.phoenix);
+        Typeface font = Typeface.createFromAsset(getAssets(), "BrushScriptStd.otf");
+        txt.setTypeface(font);
+
 
     }
     public void loginActivity(View view){
