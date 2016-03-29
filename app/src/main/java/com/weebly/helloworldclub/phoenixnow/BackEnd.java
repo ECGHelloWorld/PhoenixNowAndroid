@@ -3,6 +3,7 @@ package com.weebly.helloworldclub.phoenixnow;
 import android.content.Context;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,28 +43,45 @@ public class BackEnd {
         LoginThread thread=new LoginThread();
         thread.start();
     }
-    public void signIn(double lat,double lon){
+    public void signIn(double lat,double lon, MainActivity mainActivity){
         latitude=lat;
         longitude=lon;
-        SigninThread thread=new SigninThread();
+        SigninThread thread=new SigninThread(mainActivity);
         thread.start();
     }
     public class SigninThread extends Thread{
+        private MainActivity mainActivity;
+        public SigninThread(MainActivity m){
+            this.mainActivity=m;
+        }
         public void run(){
             try {
                 URL url=new URL("http://helloworldapi.nickendo.com/events");
                 HttpURLConnection urlConnection=(HttpURLConnection)url.openConnection();
                 JSONObject json=new JSONObject();
-                json.put("lat",latitude);
-                json.put("lon",longitude);
+                json.put("lat", latitude);
+                json.put("lon", longitude);
                 urlConnection.setDoOutput(true);
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
                 urlConnection.setRequestProperty("Accept", "application/json");
                 OutputStream os=urlConnection.getOutputStream();
                 os.write(json.toString().getBytes());
-                Log.d("json",json.toString());
-                Log.d("SigninResponse",urlConnection.getResponseMessage());
+                Log.d("json", json.toString());
+                Log.d("SigninResponse", urlConnection.getResponseMessage());
+                if(urlConnection.getResponseMessage().equalsIgnoreCase("unauthorized")){
+                    mainActivity.runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(mainActivity.getBaseContext(), "Not at Guilford", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }else if(urlConnection.getResponseMessage().equalsIgnoreCase("authorized")){
+                    mainActivity.runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(mainActivity.getBaseContext(), "Signed in", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }catch(java.io.IOException e){

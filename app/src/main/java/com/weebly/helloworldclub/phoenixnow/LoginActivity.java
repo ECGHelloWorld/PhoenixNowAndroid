@@ -26,8 +26,7 @@ public class LoginActivity extends AppCompatActivity{
         BackEnd backend=new BackEnd(emailEditText,passwordEditText,null);
         backend.login();
         long start=System.currentTimeMillis();
-        while(System.currentTimeMillis()<start+1000){
-
+        while(System.currentTimeMillis()<start+1500){
         }
         if(backend.getReturned().equals("OK")&&backend.getCode()==200){
             space.setText("Logged in!");
