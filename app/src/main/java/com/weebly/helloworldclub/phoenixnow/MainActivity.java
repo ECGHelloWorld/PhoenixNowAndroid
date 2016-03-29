@@ -13,8 +13,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    private LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,9 +27,6 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.homepage);
             Log.d("MainActivityToken", backend.getToken());
         }
-
-
-
     }
 
     public void loginActivity(View view) {
@@ -41,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     }
     public void signIn(View view) {
         BackEnd backend = new BackEnd();
-        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -53,9 +51,14 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        double longitude = location.getLongitude();
-        double latitude = location.getLatitude();
-        backend.signIn(latitude,longitude);
+        if(location!=null){
+            double longitude = location.getLongitude();
+            double latitude = location.getLatitude();
+            backend.signIn(latitude,longitude);
+        }else{
+            Toast.makeText(getApplicationContext(),"Please enable location",Toast.LENGTH_LONG).show();
+        }
+
     }
 
 }

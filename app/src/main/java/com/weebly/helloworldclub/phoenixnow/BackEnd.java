@@ -20,7 +20,7 @@ public class BackEnd {
    EditText name;
     EditText password;
     static String emailstring;
-    String message;
+    String message="null";
     int code;
     static String token;
     double latitude;
@@ -62,6 +62,8 @@ public class BackEnd {
                 urlConnection.setRequestProperty("Accept", "application/json");
                 OutputStream os=urlConnection.getOutputStream();
                 os.write(json.toString().getBytes());
+                Log.d("json",json.toString());
+                Log.d("SigninResponse",urlConnection.getResponseMessage());
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }catch(java.io.IOException e){
