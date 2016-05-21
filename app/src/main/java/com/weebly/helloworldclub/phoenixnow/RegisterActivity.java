@@ -50,7 +50,6 @@ public void registerClick(View view){
         backend.register();
         long start=System.currentTimeMillis();
         while(System.currentTimeMillis()<start+1000){
-
         }
         if(backend.getReturned().equals("OK")&&backend.getCode()==200){
             space.setText("Registered!");

@@ -56,7 +56,7 @@ public class BackEnd {
         }
         public void run(){
             try {
-                URL url=new URL("http://helloworldapi.nickendo.com/events");
+                URL url=new URL("http://helloworldapi.nickendo.com/signins");
                 HttpURLConnection urlConnection=(HttpURLConnection)url.openConnection();
                 JSONObject json=new JSONObject();
                 json.put("lat", latitude);
@@ -65,17 +65,18 @@ public class BackEnd {
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
                 urlConnection.setRequestProperty("Accept", "application/json");
+                urlConnection.setRequestProperty("Authorization",token);
                 OutputStream os=urlConnection.getOutputStream();
                 os.write(json.toString().getBytes());
                 Log.d("json", json.toString());
                 Log.d("SigninResponse", urlConnection.getResponseMessage());
-                if(urlConnection.getResponseMessage().equalsIgnoreCase("unauthorized")){
+                if(urlConnection.getResponseMessage().equalsIgnoreCase("conflict")){
                     mainActivity.runOnUiThread(new Runnable() {
                         public void run() {
                             Toast.makeText(mainActivity.getBaseContext(), "Not at Guilford", Toast.LENGTH_LONG).show();
                         }
                     });
-                }else if(urlConnection.getResponseMessage().equalsIgnoreCase("authorized")){
+                }else if(urlConnection.getResponseMessage().equalsIgnoreCase("created")){
                     mainActivity.runOnUiThread(new Runnable() {
                         public void run() {
                             Toast.makeText(mainActivity.getBaseContext(), "Signed in", Toast.LENGTH_LONG).show();

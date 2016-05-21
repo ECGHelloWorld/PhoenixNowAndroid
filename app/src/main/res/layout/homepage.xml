@@ -7,6 +7,11 @@
     android:layout_height="wrap_content"
     android:text="Sign In"
     android:layout_centerHorizontal="true"
-    android:onClick="signIn"/>
-
+    android:onClick="signIn"
+    android:id="@+id/signinbutton"/>
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/signintext"
+    android:layout_below="@+id/signinbutton"/>
 </RelativeLayout>
