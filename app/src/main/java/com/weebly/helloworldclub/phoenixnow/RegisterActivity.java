@@ -47,7 +47,7 @@ public void registerClick(View view){
     TextView space=(TextView)findViewById(R.id.space);
     BackEnd backend=new BackEnd(emailEditText,passwordEditText,nameEditText);
     if(confirmPasswordEditText.getText().toString().equals(passwordEditText.getText().toString())){
-        backend.register();
+        backend.register(this);
         long start=System.currentTimeMillis();
         while(System.currentTimeMillis()<start+1000){
         }

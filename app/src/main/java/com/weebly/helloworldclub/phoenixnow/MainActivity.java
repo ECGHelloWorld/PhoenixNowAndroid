@@ -20,6 +20,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileOutputStream;
+
 public class MainActivity extends AppCompatActivity {
     LocationManager lm;
     LocationListener mLocationListener=new LocationListener() {
@@ -49,19 +51,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        BackEnd backend = new BackEnd();
+        Memory memory=new Memory(this);
         lm=(LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (backend.getToken() == null) {
+        if (!memory.loggedIn()) {
             setContentView(R.layout.titlepage);
         } else {
             setContentView(R.layout.homepage);
-            Log.d("MainActivityToken", backend.getToken());
+            Log.d("MainActivityToken", memory.getToken());
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
             lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, mLocationListener);
             TextView welcometext=(TextView)findViewById(R.id.welcometext);
-            welcometext.setText("Welcome, " + backend.getEmail()+"!");
+            welcometext.setText("Welcome, " + memory.getEmail()+"!");
         }
     }
     @Override
@@ -75,18 +77,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        BackEnd backend=new BackEnd();
-        if (backend.getToken() != null) {
+        Memory memory=new Memory(this);
+        lm=(LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (!memory.loggedIn()) {
+            setContentView(R.layout.titlepage);
+        } else {
             setContentView(R.layout.homepage);
-            Log.d("MainActivityToken", backend.getToken());
+            Log.d("MainActivityToken", memory.getToken());
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
-            if(lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, mLocationListener);
-            }
+            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, mLocationListener);
             TextView welcometext=(TextView)findViewById(R.id.welcometext);
-            welcometext.setText("Welcome, " + backend.getEmail()+"!");
+            welcometext.setText("Welcome, " + memory.getEmail()+"!");
         }
     }
     public void loginActivity(View view) {
@@ -99,9 +102,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void signIn(View view) {
         TextView textview=(TextView)findViewById(R.id.signintext);
-        TextView welcometext=(TextView)findViewById(R.id.welcometext);
         BackEnd backend=new BackEnd();
-        welcometext.setText("Welcome, " + backend.getEmail());
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
@@ -125,5 +126,11 @@ public class MainActivity extends AppCompatActivity {
         }else{
             Toast.makeText(getApplicationContext(),"Please enable location",Toast.LENGTH_LONG).show();
         }
+    }
+    public void signOut(View view){
+        Memory memory=new Memory(this);
+        memory.logoutUser();
+        Intent intent = new Intent(MainActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }

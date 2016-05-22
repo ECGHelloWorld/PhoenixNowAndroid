@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity{
         EditText passwordEditText=(EditText)findViewById(R.id.passwordedittext);
         TextView space=(TextView)findViewById(R.id.space);
         BackEnd backend=new BackEnd(emailEditText,passwordEditText,null);
-        backend.login();
+        backend.login(this);
         long start=System.currentTimeMillis();
         while(System.currentTimeMillis()<start+1500){
         }
