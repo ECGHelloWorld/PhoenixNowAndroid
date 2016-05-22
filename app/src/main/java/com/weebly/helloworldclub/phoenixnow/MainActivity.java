@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    LocationManager lm;
     LocationListener mLocationListener=new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
@@ -45,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
     public MainActivity(){
 
     }
-    private LocationManager lm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,9 +53,40 @@ public class MainActivity extends AppCompatActivity {
         lm=(LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (backend.getToken() == null) {
             setContentView(R.layout.titlepage);
-        } else if (backend.getToken() != null) {
+        } else {
             setContentView(R.layout.homepage);
             Log.d("MainActivityToken", backend.getToken());
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, mLocationListener);
+            TextView welcometext=(TextView)findViewById(R.id.welcometext);
+            welcometext.setText("Welcome, " + backend.getEmail()+"!");
+        }
+    }
+    @Override
+    protected void onStop(){
+        super.onStop();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        lm.removeUpdates(mLocationListener);
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        BackEnd backend=new BackEnd();
+        if (backend.getToken() != null) {
+            setContentView(R.layout.homepage);
+            Log.d("MainActivityToken", backend.getToken());
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            if(lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, mLocationListener);
+            }
+            TextView welcometext=(TextView)findViewById(R.id.welcometext);
+            welcometext.setText("Welcome, " + backend.getEmail()+"!");
         }
     }
     public void loginActivity(View view) {
@@ -68,7 +99,9 @@ public class MainActivity extends AppCompatActivity {
     }
     public void signIn(View view) {
         TextView textview=(TextView)findViewById(R.id.signintext);
-        BackEnd backend = new BackEnd();
+        TextView welcometext=(TextView)findViewById(R.id.welcometext);
+        BackEnd backend=new BackEnd();
+        welcometext.setText("Welcome, " + backend.getEmail());
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
@@ -77,12 +110,11 @@ public class MainActivity extends AppCompatActivity {
             gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
         } catch(Exception ex) {}
         if(gps_enabled){
-        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000,1,mLocationListener);
-        Location location=lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            Location location=lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         while(location==null) {
             location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         }
-        textview.setText(Double.toString(location.getLatitude())+Double.toString(location.getLongitude()));
+        textview.setText("Latitude: "+Double.toString(location.getLatitude())+" Longitude: "+Double.toString(location.getLongitude()));
         while(location.hasAccuracy()==false){
             location=lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             Log.d("lat and long",Double.toString(location.getLatitude())+Double.toString(location.getLongitude()));
@@ -90,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
             double longitude = location.getLongitude();
             double latitude = location.getLatitude();
             backend.signIn(latitude, longitude, this);
-            lm.removeUpdates(mLocationListener);
         }else{
             Toast.makeText(getApplicationContext(),"Please enable location",Toast.LENGTH_LONG).show();
         }
