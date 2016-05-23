@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SettingsActivity settings=new SettingsActivity();
+        settings.initializeSettings(getApplicationContext());
         Memory memory=new Memory(this);
         lm=(LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (!memory.loggedIn()) {
@@ -131,6 +133,10 @@ public class MainActivity extends AppCompatActivity {
         Memory memory=new Memory(this);
         memory.logoutUser();
         Intent intent = new Intent(MainActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+    public void openSettings(View view){
+        Intent intent=new Intent(MainActivity.this,SettingsActivity.class);
         startActivity(intent);
     }
 }

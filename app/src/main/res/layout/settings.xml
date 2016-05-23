@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/titlepagebackground">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        android:id="@+id/settingstextview"
+        android:textColor="@color/transparentblack"
+        android:textSize="25sp"
+        android:layout_margin="10dp"
+        android:layout_centerHorizontal="true"/>
+<ScrollView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/settingstextview">
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="lol"
+        android:id="@+id/switch1"/>
+
+
+
+
+
+
+
+
+</ScrollView>
+</RelativeLayout>

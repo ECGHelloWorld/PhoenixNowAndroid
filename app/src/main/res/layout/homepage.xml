@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:textSize="20sp"
         android:textColor="@color/transparentblack"
         android:layout_below="@+id/officiallogo"
@@ -22,6 +22,7 @@
     android:layout_height="wrap_content"
     android:layout_below="@+id/welcometext"
     android:text="Sign In"
+    android:layout_marginTop="10dp"
     android:layout_centerHorizontal="true"
     android:background="@drawable/roundbutton"
     android:onClick="signIn"
@@ -37,6 +38,17 @@
         android:layout_below="@+id/signintext"
         android:background="@drawable/roundbutton"
         android:text="Sign Out"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
-        android:onClick="signOut"/>
+        android:onClick="signOut"
+        android:id="@+id/signoutbutton"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signoutbutton"
+        android:background="@drawable/roundbutton"
+        android:text="Settings"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:onClick="openSettings"/>
 </RelativeLayout>

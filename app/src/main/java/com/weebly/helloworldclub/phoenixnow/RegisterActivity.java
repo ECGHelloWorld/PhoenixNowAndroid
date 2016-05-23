@@ -45,8 +45,9 @@ public void registerClick(View view){
     EditText emailEditText=(EditText)findViewById(R.id.usernameedittext);
     EditText nameEditText=(EditText)findViewById(R.id.nameedittext);
     TextView space=(TextView)findViewById(R.id.space);
+    space.setText("Pick a password with at least 8 characters");
     BackEnd backend=new BackEnd(emailEditText,passwordEditText,nameEditText);
-    if(confirmPasswordEditText.getText().toString().equals(passwordEditText.getText().toString())){
+    if(confirmPasswordEditText.getText().toString().equals(passwordEditText.getText().toString())&& confirmPasswordEditText.getText().toString().length()>7){
         backend.register(this);
         long start=System.currentTimeMillis();
         while(System.currentTimeMillis()<start+1000){
@@ -58,8 +59,11 @@ public void registerClick(View view){
         }else if(backend.getReturned().equalsIgnoreCase("conflict")&&backend.getCode()==409){
             space.setText("User already registered");
         }
-    }else{
-        space.setText("Passwords must match");
+    }
+    if(!confirmPasswordEditText.getText().toString().equals(passwordEditText.getText().toString())){
+        Toast.makeText(getApplicationContext(), "Passwords must match", Toast.LENGTH_LONG).show();
+    }else if(confirmPasswordEditText.getText().toString().length()<8){
+        Toast.makeText(getApplicationContext(), "Password must be at least 8 characters", Toast.LENGTH_LONG).show();
     }
 }
 }

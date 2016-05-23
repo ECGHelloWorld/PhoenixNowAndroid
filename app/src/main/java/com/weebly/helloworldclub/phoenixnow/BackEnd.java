@@ -152,8 +152,6 @@ public class BackEnd {
                 message = urlConnection.getResponseMessage();
                 token=urlConnection.getHeaderField("Authorization");
                 emailstring=email.getText().toString();
-                Memory memory=new Memory(context);
-                memory.loginUser(emailstring,token);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (java.io.IOException e) {

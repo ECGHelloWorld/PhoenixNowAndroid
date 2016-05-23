@@ -29,6 +29,9 @@
         android:layout_below="@+id/usernametextview"
         android:layout_centerHorizontal="true"
         android:text="\@guilford.edu"
+        android:textSize="20sp"
+        android:textColor="@color/transparentblack"
+        android:gravity="center"
         />
     <TextView
         android:layout_width="wrap_content"
@@ -48,6 +51,9 @@
         android:layout_below="@id/nametextview"
         android:layout_centerHorizontal="true"
         android:id="@+id/nameedittext"
+        android:textSize="20sp"
+        android:textColor="@color/transparentblack"
+        android:gravity="center"
         />
     <TextView
         android:layout_width="wrap_content"
@@ -67,6 +73,10 @@
         android:id="@+id/passwordedittext"
         android:layout_below="@+id/passwordtextview"
         android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:textColor="@color/transparentblack"
+        android:password="true"
+        android:gravity="center"
         />
     <TextView
         android:layout_width="wrap_content"
@@ -86,6 +96,10 @@
         android:id="@+id/confirmpasswordedittext"
         android:layout_below="@+id/confirmpasswordtextview"
         android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:textColor="@color/transparentblack"
+        android:password="true"
+        android:gravity="center"
         />
     <TextView
         android:layout_width="wrap_content"

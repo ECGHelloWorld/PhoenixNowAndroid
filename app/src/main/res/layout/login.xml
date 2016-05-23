@@ -22,10 +22,14 @@
     <EditText
         android:layout_width="300dp"
         android:layout_height="40dp"
+        android:textSize="20sp"
+        android:textColor="@color/transparentblack"
         android:background="@drawable/roundbutton"
         android:layout_below="@+id/emailtextview"
         android:layout_centerHorizontal="true"
         android:id="@+id/emailedittext"
+        android:gravity="center"
+
         />
     <TextView
         android:layout_width="wrap_content"
@@ -45,6 +49,10 @@
         android:background="@drawable/roundbutton"
         android:layout_centerHorizontal="true"
         android:id="@+id/passwordedittext"
+        android:textSize="20sp"
+        android:textColor="@color/transparentblack"
+        android:password="true"
+        android:gravity="center"
         />
     <TextView
         android:layout_width="wrap_content"
