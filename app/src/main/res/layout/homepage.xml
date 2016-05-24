@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/signintext"
         android:background="@drawable/roundbutton"
-        android:text="Sign Out"
+        android:text="Log Out"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:onClick="signOut"

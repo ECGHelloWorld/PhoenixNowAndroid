@@ -50,7 +50,6 @@ public class Memory{
             String filePath = context.getFilesDir().getPath() + "/db.txt";
             File db=new File(filePath);
             db.createNewFile();
-//            FileOutputStream fos=context.openFileOutput(db.getAbsolutePath(), Context.MODE_PRIVATE);
             FileOutputStream fos=new FileOutputStream(db);
             String string=email+" "+token;
             Log.d("string",string);
@@ -78,7 +77,6 @@ public class Memory{
         try {
             String filePath = context.getFilesDir().getPath().toString() + "/db.txt";
             File db=new File(filePath);
-//            FileInputStream fis=context.openFileInput(db.getAbsolutePath());
             FileInputStream fis=new FileInputStream(db);
             byte[] buffer=new byte[fis.available()];
             fis.read(buffer);
@@ -96,7 +94,6 @@ public class Memory{
         try {
             String filePath = context.getFilesDir().getPath().toString() + "/db.txt";
             File db=new File(filePath);
-//            FileInputStream fis=context.openFileInput(db.getAbsolutePath());
             FileInputStream fis=new FileInputStream(db);
             byte[] buffer=new byte[fis.available()];
             fis.read(buffer);

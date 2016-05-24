@@ -25,6 +25,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.cert.Certificate;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLPeerUnverifiedException;
@@ -44,13 +46,17 @@ public void registerClick(View view){
     EditText confirmPasswordEditText=(EditText)findViewById(R.id.confirmpasswordedittext);
     EditText emailEditText=(EditText)findViewById(R.id.usernameedittext);
     EditText nameEditText=(EditText)findViewById(R.id.nameedittext);
-    TextView space=(TextView)findViewById(R.id.space);
+    final TextView space=(TextView)findViewById(R.id.space);
     space.setText("Pick a password with at least 8 characters");
     BackEnd backend=new BackEnd(emailEditText,passwordEditText,nameEditText);
     if(confirmPasswordEditText.getText().toString().equals(passwordEditText.getText().toString())&& confirmPasswordEditText.getText().toString().length()>7){
         backend.register(this);
-        long start=System.currentTimeMillis();
-        while(System.currentTimeMillis()<start+1000){
+        try {
+            Thread.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        while(backend.getReturned()==null){
         }
         if(backend.getReturned().equals("OK")&&backend.getCode()==200){
             space.setText("Registered!");

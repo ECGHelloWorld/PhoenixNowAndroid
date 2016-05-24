@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -22,11 +23,15 @@ public class LoginActivity extends AppCompatActivity{
     public void loginClick(View view){
         EditText emailEditText=(EditText)findViewById(R.id.emailedittext);
         EditText passwordEditText=(EditText)findViewById(R.id.passwordedittext);
-        TextView space=(TextView)findViewById(R.id.space);
+        final TextView space=(TextView)findViewById(R.id.space);
         BackEnd backend=new BackEnd(emailEditText,passwordEditText,null);
         backend.login(this);
-        long start=System.currentTimeMillis();
-        while(System.currentTimeMillis()<start+1500){
+         try {
+            Thread.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        while(backend.getReturned()==null){
         }
         if(backend.getReturned().equals("OK")&&backend.getCode()==200){
             space.setText("Logged in!");

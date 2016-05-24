@@ -21,7 +21,7 @@ public class BackEnd {
    EditText name;
     EditText password;
     static String emailstring;
-    String message="null";
+    String message;
     int code;
     static String token;
     double latitude;
@@ -99,6 +99,7 @@ public class BackEnd {
         }
         public void run(){
             try {
+                message=null;
                 URL url = new URL("http://helloworldapi.nickendo.com/login");
                 HttpURLConnection urlConnection=(HttpURLConnection)url.openConnection();
                 JSONObject user=new JSONObject();
@@ -135,6 +136,7 @@ public class BackEnd {
         }
         public void run() {
             try {
+                message=null;
                 URL url = new URL("http://helloworldapi.nickendo.com/register");
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 JSONObject user = new JSONObject();
