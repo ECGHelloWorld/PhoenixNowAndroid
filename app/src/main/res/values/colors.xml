@@ -7,4 +7,5 @@
     <color name="transparentblack">#a6000000</color>
     <color name="transparentmaroon">#ecab0115</color>
     <color name="darkermaroon">#25000000</color>
+    <color name="lighterPrimary">#e8d0d2</color>
 </resources>

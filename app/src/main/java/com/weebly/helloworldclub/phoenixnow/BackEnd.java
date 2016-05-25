@@ -65,18 +65,23 @@ public class BackEnd {
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
                 urlConnection.setRequestProperty("Accept", "application/json");
-                urlConnection.setRequestProperty("Authorization",token);
+                Memory memory=new Memory(mainActivity.getApplicationContext());
+                urlConnection.setRequestProperty("Authorization",memory.getToken());
                 OutputStream os=urlConnection.getOutputStream();
                 os.write(json.toString().getBytes());
                 Log.d("json", json.toString());
-                Log.d("SigninResponse", urlConnection.getResponseMessage());
-                if(urlConnection.getResponseMessage().equalsIgnoreCase("conflict")){
+                String response=null;
+                while(response==null){
+                    response=urlConnection.getResponseMessage();
+                }
+                Log.d("SigninResponse", response);
+                if(response.equalsIgnoreCase("conflict")){
                     mainActivity.runOnUiThread(new Runnable() {
                         public void run() {
                             Toast.makeText(mainActivity.getBaseContext(), "Not at Guilford", Toast.LENGTH_LONG).show();
                         }
                     });
-                }else if(urlConnection.getResponseMessage().equalsIgnoreCase("created")){
+                }else if(response.equalsIgnoreCase("created")){
                     mainActivity.runOnUiThread(new Runnable() {
                         public void run() {
                             Toast.makeText(mainActivity.getBaseContext(), "Signed in", Toast.LENGTH_LONG).show();
@@ -103,7 +108,7 @@ public class BackEnd {
                 URL url = new URL("http://helloworldapi.nickendo.com/login");
                 HttpURLConnection urlConnection=(HttpURLConnection)url.openConnection();
                 JSONObject user=new JSONObject();
-                user.put("email",email.getText().toString());
+                user.put("email", email.getText().toString());
                 user.put("password", password.getText().toString());
                 urlConnection.setDoOutput(true);
                 urlConnection.setRequestMethod("POST");
@@ -111,12 +116,18 @@ public class BackEnd {
                 urlConnection.setRequestProperty("Accept", "application/json");
                 OutputStream os=urlConnection.getOutputStream();
                 os.write(user.toString().getBytes());
-                code=urlConnection.getResponseCode();
-                message=urlConnection.getResponseMessage();
+                code=-1;
+                while (code == -1) {
+                    code=urlConnection.getResponseCode();
+                    message=urlConnection.getResponseMessage();
+                }
                 token=urlConnection.getHeaderField("Authorization");
                 emailstring=email.getText().toString();
-                Memory memory=new Memory(context);
-                memory.loginUser(emailstring,token);
+                Log.d("message",message);
+                if(message.equals("OK")){
+                    Memory memory=new Memory(context);
+                    memory.loginUser(emailstring,token);
+                }
             }catch(java.net.MalformedURLException e){
                 e.printStackTrace();
             }catch(org.json.JSONException e){
@@ -150,8 +161,11 @@ public class BackEnd {
                 OutputStream os = urlConnection.getOutputStream();
                 os.write(user.toString().getBytes());
                 os.close();
-                code = urlConnection.getResponseCode();
-                message = urlConnection.getResponseMessage();
+                code=-1;
+                while(code==-1){
+                    code = urlConnection.getResponseCode();
+                    message = urlConnection.getResponseMessage();
+                }
                 token=urlConnection.getHeaderField("Authorization");
                 emailstring=email.getText().toString();
             } catch (MalformedURLException e) {

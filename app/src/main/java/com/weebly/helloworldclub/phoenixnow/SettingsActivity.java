@@ -96,11 +96,9 @@ public class SettingsActivity extends AppCompatActivity {
         File settings=new File(context.getApplicationContext().getFilesDir().getPath()+"/settings.txt");
         if(!settings.exists()) {
             try {
-                Switch switch1=(Switch)findViewById(R.id.rememberLogin);
-                switch1.setChecked(false);//initialize switches here
                 settings.createNewFile();
                 FileOutputStream fos=new FileOutputStream(settings);
-                String string="rememberLogin:off ";//and here
+                String string="rememberLogin:off ";//initialize switches
                 fos.write(string.getBytes());
                 fos.close();
             } catch (IOException e) {

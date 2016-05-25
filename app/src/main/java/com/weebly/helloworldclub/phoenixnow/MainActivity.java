@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -114,14 +115,11 @@ public class MainActivity extends AppCompatActivity {
         } catch(Exception ex) {}
         if(gps_enabled){
             Location location=lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        while(location==null) {
-            location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        }
-        textview.setText("Latitude: "+Double.toString(location.getLatitude())+" Longitude: "+Double.toString(location.getLongitude()));
-        while(location.hasAccuracy()==false){
+        while(location==null || Math.abs(location.getTime()-System.currentTimeMillis())>1000){
             location=lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             Log.d("lat and long",Double.toString(location.getLatitude())+Double.toString(location.getLongitude()));
         }
+            textview.setText("Latitude: "+Double.toString(location.getLatitude())+" Longitude: "+Double.toString(location.getLongitude()));
             double longitude = location.getLongitude();
             double latitude = location.getLatitude();
             backend.signIn(latitude, longitude, this);
