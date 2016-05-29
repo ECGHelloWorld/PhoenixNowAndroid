@@ -50,5 +50,15 @@
         android:text="Settings"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
-        android:onClick="openSettings"/>
+        android:onClick="openSettings"
+        android:id="@+id/settingsbutton"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/settingsbutton"
+        android:background="@drawable/roundbutton"
+        android:text="Schedule"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:onClick="openSchedule"/>
 </RelativeLayout>

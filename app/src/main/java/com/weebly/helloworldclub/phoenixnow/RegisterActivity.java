@@ -49,7 +49,10 @@ public void registerClick(View view){
     final TextView space=(TextView)findViewById(R.id.space);
     space.setText("Pick a password with at least 8 characters");
     BackEnd backend=new BackEnd(emailEditText,passwordEditText,nameEditText);
-    if(confirmPasswordEditText.getText().toString().equals(passwordEditText.getText().toString())&& confirmPasswordEditText.getText().toString().length()>7){
+    if(confirmPasswordEditText.getText().toString().equals(passwordEditText.getText().toString())&&
+            confirmPasswordEditText.getText().toString().length()>7 &&
+            emailEditText.getText().toString().contains("@guilford.edu") &&
+            !nameEditText.getText().toString().equals("")){
         backend.register(this);
         try {
             Thread.sleep(5);
@@ -70,6 +73,10 @@ public void registerClick(View view){
         Toast.makeText(getApplicationContext(), "Passwords must match", Toast.LENGTH_LONG).show();
     }else if(confirmPasswordEditText.getText().toString().length()<8){
         Toast.makeText(getApplicationContext(), "Password must be at least 8 characters", Toast.LENGTH_LONG).show();
+    }else if(nameEditText.getText().toString().equals("")){
+        Toast.makeText(getApplicationContext(), "Please input a name", Toast.LENGTH_LONG).show();
+    }else if(!emailEditText.getText().toString().contains("@guilford.edu")){
+        Toast.makeText(getApplicationContext(), "Please input a guilford email", Toast.LENGTH_LONG).show();
     }
 }
 }

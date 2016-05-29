@@ -104,26 +104,42 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void signIn(View view) {
-        TextView textview=(TextView)findViewById(R.id.signintext);
-        BackEnd backend=new BackEnd();
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        boolean gps_enabled = false;
-        try {
-            gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        } catch(Exception ex) {}
-        if(gps_enabled){
-            Location location=lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        while(location==null || Math.abs(location.getTime()-System.currentTimeMillis())>1000){
-            location=lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        }
-            textview.setText("Latitude: "+Double.toString(location.getLatitude())+" Longitude: "+Double.toString(location.getLongitude()));
-            double longitude = location.getLongitude();
-            double latitude = location.getLatitude();
-            backend.signIn(latitude, longitude, this);
-        }else{
-            Toast.makeText(getApplicationContext(),"Please enable location",Toast.LENGTH_LONG).show();
+        if(Settings.Secure.getString(this.getApplicationContext().getContentResolver(),Settings.Secure.ALLOW_MOCK_LOCATION).equals("1")){
+            Toast.makeText(getApplicationContext(),"Please turn off location spoofing",Toast.LENGTH_LONG).show();
+        }else {
+            TextView textview = (TextView) findViewById(R.id.signintext);
+            BackEnd backend = new BackEnd();
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            boolean gps_enabled = false;
+            try {
+                gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+            } catch (Exception ex) {
+            }
+            if (gps_enabled) {
+                Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                Long start = System.currentTimeMillis();
+                boolean searching = true;
+                boolean found = true;
+                while (location == null || Math.abs(location.getTime() - System.currentTimeMillis()) > 1000 && searching) {
+                    location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    if (System.currentTimeMillis() - start > 5000) {
+                        searching = false;
+                        found = false;
+                    }
+                }
+                if (found) {
+                    textview.setText("Latitude: " + Double.toString(location.getLatitude()) + " Longitude: " + Double.toString(location.getLongitude()));
+                    double longitude = location.getLongitude();
+                    double latitude = location.getLatitude();
+                    backend.signIn(latitude, longitude, this);
+                } else {
+                    textview.setText("Could not find within 5 seconds");
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), "Please enable location", Toast.LENGTH_LONG).show();
+            }
         }
     }
     public void signOut(View view){
@@ -134,6 +150,10 @@ public class MainActivity extends AppCompatActivity {
     }
     public void openSettings(View view){
         Intent intent=new Intent(MainActivity.this,SettingsActivity.class);
+        startActivity(intent);
+    }
+    public void openSchedule(View view){
+        Intent intent=new Intent(MainActivity.this,ScheduleActivity.class);
         startActivity(intent);
     }
 }
