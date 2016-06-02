@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="250dp"
+        android:layout_height="150dp"
         android:src="@drawable/officiallogo"
         android:id="@+id/officiallogo"
         android:layout_marginTop="24dp"/>
@@ -56,9 +56,31 @@
         />
     <TextView
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PIN"
+        android:textSize="20sp"
+        android:textColor="@color/transparentblack"
+        android:layout_below="@+id/passwordedittext"
+        android:paddingTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/codeTextView"/>
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/codeTextView"
+        android:background="@drawable/roundbutton"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/codeEditText"
+        android:textSize="20sp"
+        android:textColor="@color/transparentblack"
+        android:password="true"
+        android:gravity="center"
+        />
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:id="@+id/space"
-        android:layout_below="@id/passwordedittext"
+        android:layout_below="@id/codeEditText"
         />
     <Button
         android:layout_width="wrap_content"

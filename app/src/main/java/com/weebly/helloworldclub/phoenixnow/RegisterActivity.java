@@ -48,7 +48,7 @@ public void registerClick(View view){
     EditText nameEditText=(EditText)findViewById(R.id.nameedittext);
     final TextView space=(TextView)findViewById(R.id.space);
     space.setText("Pick a password with at least 8 characters");
-    BackEnd backend=new BackEnd(emailEditText,passwordEditText,nameEditText);
+    BackEnd backend=new BackEnd(emailEditText,passwordEditText,nameEditText,null);
     if(confirmPasswordEditText.getText().toString().equals(passwordEditText.getText().toString())&&
             confirmPasswordEditText.getText().toString().length()>7 &&
             emailEditText.getText().toString().contains("@guilford.edu") &&

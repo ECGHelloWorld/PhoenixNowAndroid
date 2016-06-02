@@ -24,8 +24,9 @@ import java.net.URL;
  */
 public class BackEnd {
     EditText email;
-   EditText name;
+    EditText name;
     EditText password;
+    EditText codeedittext;
     static String emailstring;
     String message;
     int code;
@@ -38,10 +39,12 @@ public class BackEnd {
     Switch wednesday;
     Switch thursday;
     Switch friday;
-    public BackEnd(EditText emailEditText, EditText passwordEditText, EditText nameEditText) {
+    public static String body;
+    public BackEnd(EditText emailEditText, EditText passwordEditText, EditText nameEditText,EditText codeEditText) {
         email=emailEditText;
         name=nameEditText;
         password=passwordEditText;
+        codeedittext=codeEditText;
     }
     public BackEnd(Switch m,Switch t, Switch w, Switch r, Switch f){
         monday=m;
@@ -225,6 +228,12 @@ public class BackEnd {
                 JSONObject user=new JSONObject();
                 user.put("email", email.getText().toString());
                 user.put("password", password.getText().toString());
+                if(codeedittext.getText().toString().length()>0) {
+                    user.put("code", codeedittext.getText().toString());
+                    Log.d("codeedittext", codeedittext.getText().toString());
+                }else{
+                    user.put("code","null");
+                }
                 urlConnection.setDoOutput(true);
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
@@ -236,10 +245,15 @@ public class BackEnd {
                     code=urlConnection.getResponseCode();
                     message=urlConnection.getResponseMessage();
                 }
-                token=urlConnection.getHeaderField("Authorization");
-                emailstring=email.getText().toString();
-                Log.d("message",message);
+                InputStream is= new BufferedInputStream(urlConnection.getInputStream());
+                BufferedReader br=new BufferedReader(new InputStreamReader(is));
+                body=" "+br.readLine();
+                Log.d("body",body);
+                Log.d("responsecode",Integer.toString(code));
                 if(message.equals("OK")){
+                    token=urlConnection.getHeaderField("Authorization");
+                    emailstring=email.getText().toString();
+                    Log.d("message",message);
                     Memory memory=new Memory(context);
                     memory.loginUser(emailstring,token);
                 }

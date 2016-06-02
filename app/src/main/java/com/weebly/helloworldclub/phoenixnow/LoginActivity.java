@@ -23,8 +23,9 @@ public class LoginActivity extends AppCompatActivity{
     public void loginClick(View view){
         EditText emailEditText=(EditText)findViewById(R.id.emailedittext);
         EditText passwordEditText=(EditText)findViewById(R.id.passwordedittext);
+        EditText codeEditText=(EditText)findViewById(R.id.codeEditText);
         final TextView space=(TextView)findViewById(R.id.space);
-        BackEnd backend=new BackEnd(emailEditText,passwordEditText,null);
+        BackEnd backend=new BackEnd(emailEditText,passwordEditText,null,codeEditText);
         backend.login(this);
          try {
             Thread.sleep(5);
@@ -33,13 +34,16 @@ public class LoginActivity extends AppCompatActivity{
         }
         while(backend.getReturned()==null){
         }
-        if(backend.getReturned().equals("OK")&&backend.getCode()==200){
+        if(backend.getCode()==200){
             space.setText("Logged in!");
             Intent intent=new Intent(LoginActivity.this,MainActivity.class);
             startActivity(intent);
-        }else if(backend.getReturned().equalsIgnoreCase("unauthorized")&&backend.getCode()==401){
+        }else if(backend.getCode()==401){
             space.setText("User not in system");
+        }else if(backend.getCode()==201){
+           space.setText("Please include PIN");
+        }else if(backend.getCode()==202){
+           space.setText("Incorrect PIN");
         }
     }
-
 }
