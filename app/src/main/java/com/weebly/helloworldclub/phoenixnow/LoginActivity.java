@@ -38,11 +38,7 @@ public class LoginActivity extends AppCompatActivity{
             Intent intent=new Intent(LoginActivity.this,MainActivity.class);
             startActivity(intent);
         }else if(backend.getCode()==401){
-            space.setText("User not in system");
-        }else if(backend.getCode()==201){
-           space.setText("Please include PIN");
-        }else if(backend.getCode()==202){
-           space.setText("Incorrect PIN");
+            space.setText("Unauthorized: Either not a user or your email hasn't been confirmed");
         }
     }
 }
