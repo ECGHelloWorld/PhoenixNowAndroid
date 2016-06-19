@@ -26,7 +26,6 @@ public class BackEnd {
     EditText email;
     EditText name;
     EditText password;
-    EditText codeedittext;
     static String emailstring;
     String message;
     int code;
@@ -40,11 +39,10 @@ public class BackEnd {
     Switch thursday;
     Switch friday;
     public static String body;
-    public BackEnd(EditText emailEditText, EditText passwordEditText, EditText nameEditText,EditText codeEditText) {
+    public BackEnd(EditText emailEditText, EditText passwordEditText, EditText nameEditText) {
         email=emailEditText;
         name=nameEditText;
         password=passwordEditText;
-        codeedittext=codeEditText;
     }
     public BackEnd(Switch m,Switch t, Switch w, Switch r, Switch f){
         monday=m;
@@ -228,12 +226,6 @@ public class BackEnd {
                 JSONObject user=new JSONObject();
                 user.put("email", email.getText().toString());
                 user.put("password", password.getText().toString());
-                if(codeedittext.getText().toString().length()>0) {
-                    user.put("code", codeedittext.getText().toString());
-                    Log.d("codeedittext", codeedittext.getText().toString());
-                }else{
-                    user.put("code","null");
-                }
                 urlConnection.setDoOutput(true);
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");

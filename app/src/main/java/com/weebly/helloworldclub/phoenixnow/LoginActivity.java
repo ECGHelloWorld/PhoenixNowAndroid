@@ -23,9 +23,8 @@ public class LoginActivity extends AppCompatActivity{
     public void loginClick(View view){
         EditText emailEditText=(EditText)findViewById(R.id.emailedittext);
         EditText passwordEditText=(EditText)findViewById(R.id.passwordedittext);
-        EditText codeEditText=(EditText)findViewById(R.id.codeEditText);
         final TextView space=(TextView)findViewById(R.id.space);
-        BackEnd backend=new BackEnd(emailEditText,passwordEditText,null,codeEditText);
+        BackEnd backend=new BackEnd(emailEditText,passwordEditText,null);
         backend.login(this);
          try {
             Thread.sleep(5);
