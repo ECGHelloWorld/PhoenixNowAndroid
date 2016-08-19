@@ -20,17 +20,11 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Switch
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Remember login"
-            android:id="@+id/rememberLogin"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/creditstextview"
-            android:layout_below="@+id/rememberLogin"
             android:layout_centerHorizontal="true"
             android:text="Credits"
             android:textSize="10sp"/>
@@ -44,12 +38,12 @@
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
             android:text="This app was created and is maintained by ECGHelloWorld App Club, 2016.
-Web interface and server programming: Nick Day.
 App programming: Justin Kerr.
-App logo: Varun Nair.
-App design: Ali Chaudria and Calder Brown.
-Contact the club for bug reports, questions, or assistance.
-Website: http://helloworldclub.weebly.com"
+App logo and design: Varun Nair and Caulder Brown
+Contact the club or devs for bug reports, questions, or assistance at
+http://helloworldclub.weebly.com or email
+kerrj@guilford.edu,
+nairv@guilford.edu"
 
             />
     </RelativeLayout>
