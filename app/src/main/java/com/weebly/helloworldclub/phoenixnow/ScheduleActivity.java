@@ -28,7 +28,7 @@ public class ScheduleActivity extends AppCompatActivity {
         final Switch r=(Switch) findViewById(R.id.rswitch);
         final Switch f=(Switch) findViewById(R.id.fswitch);
         BackEnd backend=new BackEnd();
-        backend.getSchedule(this, new BackEnd.BackEndListener() {
+        backend.getSchedule(new BackEnd.BackEndListener() {
             @Override
             public void onSuccess(String schedule) {
                 try {
@@ -117,7 +117,7 @@ public class ScheduleActivity extends AppCompatActivity {
         Switch r=(Switch) findViewById(R.id.rswitch);
         Switch f=(Switch) findViewById(R.id.fswitch);
         BackEnd backend=new BackEnd(m,t,w,r,f);
-        backend.sendSchedule(this, new BackEnd.BackEndListener() {
+        backend.sendSchedule(new BackEnd.BackEndListener() {
             @Override
             public void onSuccess(String data) {
                 setText("Schedule sent for approval");

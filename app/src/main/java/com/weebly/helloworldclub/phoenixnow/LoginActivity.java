@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity{
         final TextView space=(TextView)findViewById(R.id.space);
         BackEnd backend=new BackEnd(emailEditText,passwordEditText,null,null,null);
         makeToast("Logging in...");
-        backend.login(this, new BackEnd.BackEndListener() {
+        backend.login(new BackEnd.BackEndListener() {
             @Override
             public void onSuccess(String data) {
                 makeToast("Logged in!");

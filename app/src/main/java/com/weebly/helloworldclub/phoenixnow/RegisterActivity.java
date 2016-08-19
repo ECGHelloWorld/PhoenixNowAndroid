@@ -58,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
                 !lastNameEditText.getText().toString().equals("")&&
                 gradeEditText.getText().length()>0){
             makeToast("Registering...");
-            backend.register(this, new BackEnd.BackEndListener() {
+            backend.register(new BackEnd.BackEndListener() {
                 @Override
                 public void onSuccess(String data) {
                     makeToast("Registered!");

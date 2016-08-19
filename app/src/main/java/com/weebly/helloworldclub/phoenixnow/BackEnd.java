@@ -63,26 +63,26 @@ public class BackEnd {
 
     }
 
-    public void register(RegisterActivity registerActivity,BackEndListener listener) {
-        RegisterThread thread = new RegisterThread(registerActivity.getBaseContext(),listener);
+    public void register(BackEndListener listener) {
+        RegisterThread thread = new RegisterThread(listener);
         thread.start();
     }
-    public void login(LoginActivity loginActivity,BackEndListener listener){
-        LoginThread thread=new LoginThread(loginActivity.getBaseContext(),listener);
+    public void login(BackEndListener listener){
+        LoginThread thread=new LoginThread(listener);
         thread.start();
     }
-    public void signIn(double lat,double lon, MainActivity mainActivity,BackEndListener listener){
+    public void signIn(double lat,double lon, BackEndListener listener){
         latitude=lat;
         longitude=lon;
-        SigninThread thread=new SigninThread(mainActivity,listener);
+        SigninThread thread=new SigninThread(listener);
         thread.start();
     }
-    public void sendSchedule(ScheduleActivity scheduleActivity,BackEndListener listener){
-        ScheduleThreadPost thread=new ScheduleThreadPost(scheduleActivity,listener);
+    public void sendSchedule(BackEndListener listener){
+        ScheduleThreadPost thread=new ScheduleThreadPost(listener);
         thread.start();
     }
-    public void getSchedule(ScheduleActivity scheduleActivity,BackEndListener listener){
-        ScheduleThreadGet thread=new ScheduleThreadGet(scheduleActivity,listener);
+    public void getSchedule(BackEndListener listener){
+        ScheduleThreadGet thread=new ScheduleThreadGet(listener);
         thread.start();
     }
     public void post(BackEndListener listener, String endpoint,JSONObject json){
@@ -141,10 +141,8 @@ public class BackEnd {
     }
 
     public class ScheduleThreadGet extends Thread{
-        private ScheduleActivity scheduleActivity;
         private BackEndListener listener;
-        public ScheduleThreadGet(ScheduleActivity a, BackEndListener listener){
-            this.scheduleActivity=a;
+        public ScheduleThreadGet(BackEndListener listener){
             this.listener=listener;
         }
         public void run(){
@@ -159,10 +157,8 @@ public class BackEnd {
         }
     }
     public class ScheduleThreadPost extends Thread{
-        private ScheduleActivity scheduleActivity;
         private BackEndListener listener;
-        public ScheduleThreadPost(ScheduleActivity s, BackEndListener listener){
-            this.scheduleActivity=s;
+        public ScheduleThreadPost( BackEndListener listener){
             this.listener=listener;
         }
         public void run(){
@@ -182,10 +178,8 @@ public class BackEnd {
         }
     }
     public class SigninThread extends Thread{
-        private MainActivity mainActivity;
         private BackEndListener listener;
-        public SigninThread(MainActivity m, BackEndListener listener){
-            this.mainActivity=m;
+        public SigninThread(BackEndListener listener){
             this.listener=listener;
         }
         public void run(){
@@ -203,7 +197,7 @@ public class BackEnd {
     }
     public class LoginThread extends Thread{
         private BackEndListener listener;
-        public LoginThread(Context c, BackEndListener listener){
+        public LoginThread( BackEndListener listener){
             this.listener=listener;
         }
         public void run(){
@@ -221,7 +215,7 @@ public class BackEnd {
 
     public class RegisterThread extends Thread {
         private BackEndListener listener;
-        private RegisterThread(Context c, BackEndListener listener){
+        private RegisterThread( BackEndListener listener){
             this.listener=listener;
         }
         public void run() {

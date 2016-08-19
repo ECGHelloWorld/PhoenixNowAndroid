@@ -91,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.titlepage);
         } else {
             setContentView(R.layout.homepage);
-            Log.d("MainActivityToken", memory.getToken());
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
@@ -113,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"Please turn off location spoofing",Toast.LENGTH_LONG).show();
         }else {
             MyThread thread=new MyThread();
-            makeToast("Signing in...");
             thread.start();
         }
     }
@@ -130,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (Exception ex) {
             }
             if (gps_enabled) {
+                makeToast("Signing in...");
                 Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 Long start = System.currentTimeMillis();
                 boolean searching = true;
@@ -145,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
                     setText("Latitude: " + Double.toString(location.getLatitude()) + " Longitude: " + Double.toString(location.getLongitude()));
                     double longitude = location.getLongitude();
                     double latitude = location.getLatitude();
-                    backend.signIn(latitude, longitude, activity, new BackEnd.BackEndListener() {
+                    backend.signIn(latitude, longitude, new BackEnd.BackEndListener() {
                         @Override
                         public void onSuccess(String data) {
                             makeToast("Signed in!");
