@@ -41,13 +41,9 @@ import java.nio.ByteBuffer;
  * Created by Justin on 5/22/2016.
  */
 public class Memory{
-    private Context context;
-    public Memory(Context c){
-        context=c;
-    }
     public void loginUser(String email, String token){
         try {
-            String filePath = context.getFilesDir().getPath() + "/db.txt";
+            String filePath = MainActivity.getActivity().getFilesDir().getPath() + "/db.txt";
             File db=new File(filePath);
             db.createNewFile();
             FileOutputStream fos=new FileOutputStream(db);
@@ -62,12 +58,12 @@ public class Memory{
         }
     }
     public void logoutUser(){
-        String filePath = context.getFilesDir().getPath().toString() + "/db.txt";
+        String filePath = MainActivity.getActivity().getFilesDir().getPath().toString() + "/db.txt";
         File db=new File(filePath);
         db.delete();
     }
     public boolean loggedIn(){
-        String filePath = context.getFilesDir().getPath().toString() + "/db.txt";
+        String filePath = MainActivity.getActivity().getFilesDir().getPath().toString() + "/db.txt";
         File db=new File(filePath);
         return db.exists();
 //        return false;
@@ -75,7 +71,7 @@ public class Memory{
 
     public String getEmail(){
         try {
-            String filePath = context.getFilesDir().getPath().toString() + "/db.txt";
+            String filePath = MainActivity.getActivity().getFilesDir().getPath().toString() + "/db.txt";
             File db=new File(filePath);
             FileInputStream fis=new FileInputStream(db);
             byte[] buffer=new byte[fis.available()];
@@ -92,7 +88,7 @@ public class Memory{
     }
     public String getToken(){
         try {
-            String filePath = context.getFilesDir().getPath().toString() + "/db.txt";
+            String filePath = MainActivity.getActivity().getFilesDir().getPath().toString() + "/db.txt";
             File db=new File(filePath);
             FileInputStream fis=new FileInputStream(db);
             byte[] buffer=new byte[fis.available()];

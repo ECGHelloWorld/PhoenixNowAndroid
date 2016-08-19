@@ -21,6 +21,9 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.FileOutputStream;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,15 +49,14 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
-    public MainActivity(){
-
-    }
+    private static MainActivity activity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activity=this;
         SettingsActivity settings=new SettingsActivity();
         settings.initializeSettings(getApplicationContext());
-        Memory memory=new Memory(this);
+        Memory memory=new Memory();
         lm=(LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (!memory.loggedIn()) {
             setContentView(R.layout.titlepage);
@@ -69,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
             welcometext.setText("Welcome, " + memory.getEmail()+"!");
         }
     }
+    public static MainActivity getActivity(){
+        return activity;
+    }
     @Override
     protected void onStop(){
         super.onStop();
@@ -80,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        Memory memory=new Memory(this);
+        Memory memory=new Memory();
         lm=(LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (!memory.loggedIn()) {
             setContentView(R.layout.titlepage);
@@ -107,9 +112,16 @@ public class MainActivity extends AppCompatActivity {
         if(Settings.Secure.getString(this.getApplicationContext().getContentResolver(),Settings.Secure.ALLOW_MOCK_LOCATION).equals("1")){
             Toast.makeText(getApplicationContext(),"Please turn off location spoofing",Toast.LENGTH_LONG).show();
         }else {
-            TextView textview = (TextView) findViewById(R.id.signintext);
+            MyThread thread=new MyThread();
+            makeToast("Signing in...");
+            thread.start();
+        }
+    }
+    public class MyThread extends Thread{
+        @Override
+        public void run(){
             BackEnd backend = new BackEnd();
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
             boolean gps_enabled = false;
@@ -130,20 +142,58 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 if (found) {
-                    textview.setText("Latitude: " + Double.toString(location.getLatitude()) + " Longitude: " + Double.toString(location.getLongitude()));
+                    setText("Latitude: " + Double.toString(location.getLatitude()) + " Longitude: " + Double.toString(location.getLongitude()));
                     double longitude = location.getLongitude();
                     double latitude = location.getLatitude();
-                    backend.signIn(latitude, longitude, this);
+                    backend.signIn(latitude, longitude, activity, new BackEnd.BackEndListener() {
+                        @Override
+                        public void onSuccess(String data) {
+                            makeToast("Signed in!");
+                        }
+
+                        @Override
+                        public void onFailure(String message) {
+                            try {
+                                JSONObject json=new JSONObject(message);
+                                setText(json.getString("message"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled() {
+                            makeToast("Server request timed out");
+                        }
+                    });
                 } else {
-                    textview.setText("Could not find within 5 seconds");
+                    setText("Could not resolve location within 5 seconds");
                 }
             } else {
-                Toast.makeText(getApplicationContext(), "Please enable location", Toast.LENGTH_LONG).show();
+                makeToast("Please enable location");
             }
         }
     }
+    public void makeToast(final String message){
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getBaseContext(),message,Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    public void setText(String message){
+        final TextView space=(TextView)findViewById(R.id.signintext);
+        final String m=message;
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                space.setText(m);
+            }
+        });
+    }
     public void signOut(View view){
-        Memory memory=new Memory(this);
+        Memory memory=new Memory();
         memory.logoutUser();
         Intent intent = new Intent(MainActivity.this, MainActivity.class);
         startActivity(intent);

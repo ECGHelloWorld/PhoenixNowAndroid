@@ -38,29 +38,59 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/usernameedittext"
         android:layout_centerHorizontal="true"
-        android:text="Name"
+        android:text="First Name, Last Name, and Grade"
         android:paddingTop="15dp"
         android:textSize="20sp"
         android:textColor="@color/transparentblack"
         android:id="@+id/nametextview"
         />
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:background="@drawable/roundbutton"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/nametextview"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/nameedittext"
-        android:textSize="20sp"
-        android:textColor="@color/transparentblack"
+        android:id="@+id/nameLayout"
         android:gravity="center"
-        />
+        >
+        <EditText
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:background="@drawable/roundbutton"
+            android:layout_centerHorizontal="false"
+            android:id="@+id/firstNameEditText"
+            android:textSize="20sp"
+            android:textColor="@color/transparentblack"
+            android:gravity="center"
+            />
+        <EditText
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:background="@drawable/roundbutton"
+            android:layout_toRightOf="@+id/firstNameEditText"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/lastNameEditText"
+            android:textSize="20sp"
+            android:textColor="@color/transparentblack"
+            android:gravity="center"
+            />
+        <EditText
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:background="@drawable/roundbutton"
+            android:layout_toRightOf="@+id/lastNameEditText"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/gradeEditText"
+            android:textSize="20sp"
+            android:textColor="@color/transparentblack"
+            android:gravity="center"
+            />
+    </RelativeLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/transparentblack"
         android:text="Password"
-        android:layout_below="@+id/nameedittext"
+        android:layout_below="@+id/nameLayout"
         android:layout_centerHorizontal="true"
         android:textSize="20sp"
         android:paddingTop="15dp"
