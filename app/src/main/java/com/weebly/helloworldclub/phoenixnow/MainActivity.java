@@ -141,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 if (found) {
-                    setText("Latitude: " + Double.toString(location.getLatitude()) + " Longitude: " + Double.toString(location.getLongitude()));
                     double longitude = location.getLongitude();
                     double latitude = location.getLatitude();
                     backend.signIn(latitude, longitude, new BackEnd.BackEndListener() {
@@ -166,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                 } else {
-                    setText("Could not resolve location within 5 seconds");
+                    setText("Couldn't resolve location in 5 seconds: try again");
                 }
             } else {
                 makeToast("Please enable location");
@@ -204,5 +203,9 @@ public class MainActivity extends AppCompatActivity {
     public void openSchedule(View view){
         Intent intent=new Intent(MainActivity.this,ScheduleActivity.class);
         startActivity(intent);
+    }
+    @Override
+    public void onBackPressed(){
+
     }
 }

@@ -87,6 +87,7 @@ public class BackEnd {
     }
     public void post(BackEndListener listener, String endpoint,JSONObject json){
         try {
+            json.put("code",Code.CODE);
             URL url = new URL(baseUrl + endpoint);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             Memory memory = new Memory();
@@ -106,6 +107,7 @@ public class BackEnd {
                 }
             }
             String body="";
+            Log.d("Code",Integer.toString(code));
             if (code == 200) {
                 InputStream is = new BufferedInputStream(urlConnection.getInputStream());
                 BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -136,6 +138,9 @@ public class BackEnd {
         }catch(MalformedURLException e){
             e.printStackTrace();
         }catch(IOException e){
+            e.printStackTrace();
+        }
+        catch(JSONException e){
             e.printStackTrace();
         }
     }
@@ -205,7 +210,6 @@ public class BackEnd {
                 JSONObject user=new JSONObject();
                 user.put("email", email.getText().toString());
                 user.put("password", password.getText().toString());
-                user.put("code",Integer.toString(Code.CODE));
                 post(listener,"/login",user);
             }catch(org.json.JSONException e){
                 e.printStackTrace();
@@ -226,7 +230,6 @@ public class BackEnd {
                 user.put("lastname", lastName.getText().toString());
                 user.put("grade",grade.getText().toString());
                 user.put("password", password.getText().toString());
-//                user.put("code",Integer.toString(Code.CODE));
                 post(listener,"/register",user);
             }catch (org.json.JSONException e) {
 
