@@ -63,12 +63,12 @@ public class MainActivity extends AppCompatActivity {
         } else {
             setContentView(R.layout.homepage);
             Log.d("MainActivityToken", memory.getToken());
-            TextView welcometext=(TextView)findViewById(R.id.welcometext);
-            welcometext.setText("Welcome, " + memory.getEmail()+"!");
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
             lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, mLocationListener);
+            TextView welcometext=(TextView)findViewById(R.id.welcometext);
+            welcometext.setText("Welcome, " + memory.getEmail()+"!");
         }
     }
     public static MainActivity getActivity(){
@@ -91,13 +91,12 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.titlepage);
         } else {
             setContentView(R.layout.homepage);
-            TextView welcometext=(TextView)findViewById(R.id.welcometext);
-            welcometext.setText("Welcome, " + memory.getEmail()+"!");
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                makeToast("Please enable the location permission for Phoenixnow in the app manager");
                 return;
             }
             lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, mLocationListener);
+            TextView welcometext=(TextView)findViewById(R.id.welcometext);
+            welcometext.setText("Welcome, " + memory.getEmail()+"!");
         }
     }
     public void loginActivity(View view) {
@@ -111,18 +110,16 @@ public class MainActivity extends AppCompatActivity {
     public void signIn(View view) {
         if(Settings.Secure.getString(this.getApplicationContext().getContentResolver(),Settings.Secure.ALLOW_MOCK_LOCATION).equals("1")){
             Toast.makeText(getApplicationContext(),"Please turn off location spoofing",Toast.LENGTH_LONG).show();
-            return;
+        }else {
+            MyThread thread=new MyThread();
+            thread.start();
         }
-        MyThread thread=new MyThread();
-        thread.start();
-
     }
     public class MyThread extends Thread{
         @Override
         public void run(){
             BackEnd backend = new BackEnd();
-            if (ActivityCompat.checkSelfPermission(activity.getBaseContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity.getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                makeToast("Please enable the location permission for Phoenixnow in the app manager");
+            if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
             boolean gps_enabled = false;
@@ -179,7 +176,6 @@ public class MainActivity extends AppCompatActivity {
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Log.d("Message",message);
                 Toast.makeText(getBaseContext(),message,Toast.LENGTH_SHORT).show();
             }
         });

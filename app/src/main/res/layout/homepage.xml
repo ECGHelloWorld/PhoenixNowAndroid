@@ -3,36 +3,45 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@drawable/titlepagebackground">
     <ImageView
-        android:layout_width="wrap_content"
+        android:id="@+id/logoimage"
+        android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/officiallogo"
-        android:id="@+id/officiallogo"/>
+        android:scaleType="fitCenter"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/officiallogo" />
+
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:textSize="20sp"
-        android:textColor="@color/transparentblack"
-        android:layout_below="@+id/officiallogo"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/welcometext"/>
+        android:text="PhoenixNow"
+        android:id="@+id/title"
+        android:paddingTop="8dp"
+        android:layout_centerInParent="true"
+        android:textSize="48sp"
+        android:textColor="#ffffff"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_below="@id/logoimage" />
+
 <Button
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_below="@+id/welcometext"
-    android:text="Sign In"
+    android:layout_below="@+id/title"
+    android:text="Check-in"
     android:layout_marginTop="10dp"
     android:layout_centerHorizontal="true"
     android:background="@drawable/roundbutton"
     android:onClick="signIn"
     android:id="@+id/signinbutton"/>
+
 <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:id="@+id/signintext"
     android:layout_centerHorizontal="true"
     android:layout_below="@+id/signinbutton"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
