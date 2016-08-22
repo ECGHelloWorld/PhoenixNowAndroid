@@ -32,6 +32,7 @@ public class ScheduleActivity extends AppCompatActivity {
             @Override
             public void onSuccess(String schedule) {
                 try {
+                    Log.d("Schedule",schedule);
                     JSONObject json=new JSONObject(schedule);
                     setSwitches(json);
                     if(json.getBoolean("verified")) {
@@ -70,27 +71,27 @@ public class ScheduleActivity extends AppCompatActivity {
                     final Switch w=(Switch) findViewById(R.id.wswitch);
                     final Switch r=(Switch) findViewById(R.id.rswitch);
                     final Switch f=(Switch) findViewById(R.id.fswitch);
-                    if (json.getBoolean("monday")) {
+                    if (json.getString("schedule").contains("M")) {
                         m.setChecked(true);
                     } else {
                         m.setChecked(false);
                     }
-                    if (json.getBoolean("tuesday")) {
+                    if (json.getString("schedule").contains("T")) {
                         t.setChecked(true);
                     } else {
                         t.setChecked(false);
                     }
-                    if (json.getBoolean("wednesday")) {
+                    if (json.getString("schedule").contains("W")) {
                         w.setChecked(true);
                     } else {
                         w.setChecked(false);
                     }
-                    if (json.getBoolean("thursday")) {
+                    if (json.getString("schedule").contains("R")) {
                         r.setChecked(true);
                     } else {
                         r.setChecked(false);
                     }
-                    if (json.getBoolean("friday")) {
+                    if (json.getString("schedule").contains("F")) {
                         f.setChecked(true);
                     } else {
                         f.setChecked(false);
