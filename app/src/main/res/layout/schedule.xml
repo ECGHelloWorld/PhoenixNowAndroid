@@ -3,108 +3,151 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/titlepagebackground">
+
     <ImageView
+        android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="100dp"
-        android:src="@drawable/officiallogo"
-        android:id="@+id/logo"/>
+        android:layout_marginTop="20dp"
+        android:src="@drawable/officiallogo" />
+
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/scheduletextview"
-        android:layout_below="@+id/logo"
-        android:text="Select the days you are at school below then press the button to register"
-        android:layout_centerHorizontal="true"
-        android:textSize="20sp"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/transparentblack"
-        android:gravity="center"/>
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/mswitch"
-        android:layout_below="@+id/scheduletextview"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/transparentblack"
-        android:textSize="20sp"
-        android:text="Monday"/>
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tswitch"
-        android:layout_below="@+id/mswitch"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/transparentblack"
-        android:textSize="20sp"
-        android:text="Tuesday"/>
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/wswitch"
-        android:layout_below="@+id/tswitch"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/transparentblack"
-        android:textSize="20sp"
-        android:layout_centerHorizontal="true"
-        android:text="Wednesday"/>
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/rswitch"
-        android:layout_below="@+id/wswitch"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/transparentblack"
-        android:textSize="20sp"
-        android:layout_centerHorizontal="true"
-        android:text="Thursday"/>
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/fswitch"
-        android:layout_below="@+id/rswitch"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/transparentblack"
-        android:text="Friday"
-        android:layout_centerHorizontal="true"
-        android:textSize="20sp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="You must send Ms.Kiser an email with proof of schedule"
+        android:layout_below="@id/logo"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:id="@+id/emailscheduletextview"
-        android:layout_below="@+id/fswitch"/>
-    <Button
+        android:text="Schedule"
+        android:textColor="@android:color/white"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/scheduletextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/roundbutton"
-        android:layout_below="@+id/emailscheduletextview"
-        android:id="@+id/schedulebutton"
-        android:text="Register"
+        android:layout_below="@+id/title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="Select all days you are at school."
         android:textColor="@color/transparentblack"
         android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Switch
+        android:id="@+id/mswitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scheduletextview"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:switchMinWidth="60dp"
+        android:switchPadding="10dp"
+        android:text="Monday"
+        android:textColor="@color/transparentblack"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Switch
+        android:id="@+id/tswitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mswitch"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:switchMinWidth="60dp"
+        android:switchPadding="10dp"
+        android:text="Tuesday"
+        android:textColor="@color/transparentblack"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Switch
+        android:id="@+id/wswitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tswitch"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:switchMinWidth="60dp"
+        android:switchPadding="10dp"
+        android:text="Wednesday"
+        android:textColor="@color/transparentblack"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Switch
+        android:id="@+id/rswitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/wswitch"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:switchMinWidth="60dp"
+        android:switchPadding="10dp"
+        android:text="Thursday"
+        android:textColor="@color/transparentblack"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Switch
+        android:id="@+id/fswitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rswitch"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:switchMinWidth="60dp"
+        android:switchPadding="10dp"
+        android:text="Friday"
+        android:textColor="@color/transparentblack"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/emailscheduletextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fswitch"
+        android:layout_marginTop="15dp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="In order for this schedule to be verified, you must send Ms.Kiser an email with proof of schedule." />
+
+    <Button
+        android:id="@+id/schedulebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/emailscheduletextview"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/roundbutton"
+        android:layout_marginTop="10dp"
+        android:onClick="register"
         android:padding="15dp"
-        android:onClick="register"/>
+        android:text="Register"
+        android:textColor="@color/transparentblack"
+        android:textSize="20sp" />
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/submittedschedule"
-        android:layout_below="@+id/schedulebutton"
-        android:textSize="15sp"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/transparentblack"/>
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/verifiedschedule"
-        android:layout_below="@+id/submittedschedule"
-        android:textSize="15sp"
+        android:layout_below="@+id/schedulebutton"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/transparentblack"/>
+        android:textColor="@color/transparentblack"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/verifiedschedule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/submittedschedule"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/transparentblack"
+        android:textSize="15sp" />
 
 
 </RelativeLayout>

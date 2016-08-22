@@ -1,155 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-   android:background="@drawable/titlepagebackground"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/titlepagebackground">
+
     <ImageView
+        android:id="@+id/officiallogo"
         android:layout_width="wrap_content"
         android:layout_height="130dp"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/officiallogo"
-        android:id="@+id/officiallogo"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:src="@drawable/officiallogo" />
+
     <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/officiallogo"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="Register"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/usernametextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/usernametextview"
-        android:text="Guilford Email"
-        android:textSize="20sp"
-        android:paddingTop="30dp"
+        android:layout_below="@+id/title"
         android:layout_centerHorizontal="true"
+        android:paddingTop="12dp"
+        android:text="Guilford College Email"
         android:textColor="@color/transparentblack"
-        android:layout_below="@+id/officiallogo"
-        />
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <EditText
+        android:id="@+id/usernameedittext"
         android:layout_width="300dp"
         android:layout_height="40dp"
-        android:background="@drawable/roundbutton"
-        android:id="@+id/usernameedittext"
         android:layout_below="@+id/usernametextview"
         android:layout_centerHorizontal="true"
-        android:text="\@guilford.edu"
-        android:textSize="20sp"
-        android:textColor="@color/transparentblack"
+        android:background="@drawable/roundbutton"
         android:gravity="center"
-        />
+        android:inputType="textEmailAddress"
+        android:text="\@guilford.edu"
+        android:textColor="@color/transparentblack"
+        android:textSize="20sp" />
+
     <TextView
+        android:id="@+id/nametextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/usernameedittext"
         android:layout_centerHorizontal="true"
-        android:text="First Name, Last Name, and Grade"
         android:paddingTop="15dp"
-        android:textSize="20sp"
+        android:text="First Name, Last Name, Grade"
         android:textColor="@color/transparentblack"
-        android:id="@+id/nametextview"
-        />
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <RelativeLayout
+        android:id="@+id/nameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/nametextview"
-        android:id="@+id/nameLayout"
-        android:gravity="center"
-        >
+        android:gravity="center">
+
         <EditText
-            android:layout_width="120dp"
-            android:layout_height="40dp"
-            android:background="@drawable/roundbutton"
-            android:layout_centerHorizontal="false"
             android:id="@+id/firstNameEditText"
-            android:textSize="20sp"
-            android:textColor="@color/transparentblack"
-            android:gravity="center"
-            />
-        <EditText
             android:layout_width="120dp"
             android:layout_height="40dp"
+            android:layout_centerHorizontal="false"
             android:background="@drawable/roundbutton"
-            android:layout_toRightOf="@+id/firstNameEditText"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/lastNameEditText"
-            android:textSize="20sp"
-            android:textColor="@color/transparentblack"
             android:gravity="center"
-            />
+            android:inputType="textPersonName"
+            android:textColor="@color/transparentblack"
+            android:textSize="20sp" />
+
         <EditText
+            android:id="@+id/lastNameEditText"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@+id/firstNameEditText"
+            android:background="@drawable/roundbutton"
+            android:gravity="center"
+            android:inputType="textPersonName"
+            android:textColor="@color/transparentblack"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/gradeEditText"
             android:layout_width="60dp"
             android:layout_height="40dp"
-            android:background="@drawable/roundbutton"
-            android:layout_toRightOf="@+id/lastNameEditText"
             android:layout_centerHorizontal="true"
-            android:id="@+id/gradeEditText"
-            android:textSize="20sp"
-            android:textColor="@color/transparentblack"
+            android:layout_toRightOf="@+id/lastNameEditText"
+            android:background="@drawable/roundbutton"
             android:gravity="center"
-            />
+            android:inputType="number"
+            android:textColor="@color/transparentblack"
+            android:textSize="20sp" />
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/passwordtextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/transparentblack"
-        android:text="Password"
         android:layout_below="@+id/nameLayout"
         android:layout_centerHorizontal="true"
-        android:textSize="20sp"
         android:paddingTop="15dp"
-        android:id="@+id/passwordtextview"
-        />
+        android:text="Password"
+        android:textColor="@color/transparentblack"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <EditText
+        android:id="@+id/passwordedittext"
         android:layout_width="300dp"
         android:layout_height="40dp"
-        android:background="@drawable/roundbutton"
-        android:id="@+id/passwordedittext"
         android:layout_below="@+id/passwordtextview"
         android:layout_centerHorizontal="true"
-        android:textSize="20sp"
-        android:textColor="@color/transparentblack"
-        android:password="true"
+        android:background="@drawable/roundbutton"
         android:gravity="center"
-        />
+        android:password="true"
+        android:textColor="@color/transparentblack"
+        android:textSize="20sp" />
+
     <TextView
+        android:id="@+id/confirmpasswordtextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Confirm Password"
         android:layout_below="@+id/passwordedittext"
         android:layout_centerHorizontal="true"
-        android:textSize="20sp"
-        android:textColor="@color/transparentblack"
         android:paddingTop="15dp"
-        android:id="@+id/confirmpasswordtextview"
-        />
+        android:text="Confirm Password"
+        android:textColor="@color/transparentblack"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <EditText
+        android:id="@+id/confirmpasswordedittext"
         android:layout_width="300dp"
         android:layout_height="40dp"
-        android:background="@drawable/roundbutton"
-        android:id="@+id/confirmpasswordedittext"
         android:layout_below="@+id/confirmpasswordtextview"
         android:layout_centerHorizontal="true"
-        android:textSize="20sp"
-        android:textColor="@color/transparentblack"
-        android:password="true"
+        android:background="@drawable/roundbutton"
         android:gravity="center"
-        />
+        android:password="true"
+        android:textColor="@color/transparentblack"
+        android:textSize="20sp" />
+
     <TextView
+        android:id="@+id/space"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" "
         android:layout_below="@id/confirmpasswordedittext"
-        android:textSize="15sp"
-        android:id="@+id/space"
-        />
+        android:text=" "
+        android:textSize="15sp" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register"
-        android:textAllCaps="false"
-        android:background="@drawable/roundbutton"
-        android:textSize="20sp"
-        android:textAppearance="?android:attr/textAppearanceButton"
         android:layout_below="@+id/space"
         android:layout_centerHorizontal="true"
-        android:padding="15dp"
+        android:background="@drawable/roundbutton"
         android:onClick="registerClick"
-        />
+        android:padding="15dp"
+        android:text="Register"
+        android:textAllCaps="false"
+        android:textAppearance="?android:attr/textAppearanceButton"
+        android:textSize="20sp" />
 </RelativeLayout>

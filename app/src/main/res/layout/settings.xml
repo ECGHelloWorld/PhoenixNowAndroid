@@ -3,52 +3,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/titlepagebackground">
-    <TextView
+    <ImageView
+        android:id="@+id/logo"
         android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/officiallogo" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/logo"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
         android:text="Settings"
-        android:id="@+id/settingstextview"
-        android:textColor="@color/transparentblack"
-        android:textSize="25sp"
-        android:layout_margin="10dp"
-        android:layout_centerHorizontal="true"/>
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/settingstextview">
+        android:textColor="@android:color/white"
+        android:textSize="40sp"
+        android:textStyle="bold" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:id="@+id/creditstextview"
             android:layout_centerHorizontal="true"
             android:text="Credits"
-            android:textSize="10sp"/>
+            android:textStyle="bold"
+            android:textSize="30sp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/creditstextview"
             android:id="@+id/creditstextview2"
+            android:textStyle="bold"
             android:layout_centerHorizontal="true"
-            android:textSize="8sp"
+            android:textSize="15sp"
+            android:textAlignment="center"
             android:layout_marginRight="5dp"
+
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
-            android:text="This app was created and is maintained by ECGHelloWorld App Club, 2016.
-App programming: Justin Kerr.
-App logo and design: Varun Nair and Caulder Brown
-Contact the club or devs for bug reports, questions, or assistance at
-http://helloworldclub.weebly.com or email
-kerrj@guilford.edu,
-nairv@guilford.edu"
+            android:text="This app was created and is maintained by ECG Hello World App Club, 2016. \n
+Website and App Development: Nicolas Day, Justin Kerr, Varun Nair, and Ali Chaudhry \n
+Artwork Designed by: Calder Brown  \n
+Contact the club or the dev team for bug reports, questions, or assistance at \n
+http://helloworldclub.weebly.com \n
+or email helloworldappclub@gmail.com"
 
             />
     </RelativeLayout>
 
 
-
-</ScrollView>
 </RelativeLayout>

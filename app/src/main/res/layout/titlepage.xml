@@ -10,23 +10,38 @@
     <ImageView
         android:id="@+id/logoimage"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="200dp"
         android:scaleType="fitCenter"
         android:layout_marginTop="24dp"
         android:src="@drawable/officiallogo" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="PhoenixNow"
+        android:id="@+id/title"
+        android:paddingTop="8dp"
+        android:layout_centerInParent="true"
+        android:textSize="48sp"
+        android:textColor="#ffffff"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_below="@id/logoimage" />
 
     <TextView
         android:id="@+id/slogan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
-        android:layout_below="@id/logoimage"
+        android:layout_below="@id/title"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:gravity="center"
+        android:textStyle="bold"
         android:textSize="16sp"
-        android:text="The official app of ECG."
-        android:textColor="@android:color/black" />
+        android:text="Your gateway to all things ECG."
+        android:textColor="@android:color/white" />
 
     <Button
         android:id="@+id/loginButton"
@@ -38,6 +53,7 @@
         android:text="Log In"
         android:layout_marginTop="32dp"
         android:layout_centerInParent="true"
+        android:textStyle="bold"
         android:textAllCaps="false"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@android:color/black"
@@ -50,6 +66,7 @@
         android:background="@drawable/roundbutton"
         android:layout_below="@id/loginButton"
         android:text="Register"
+        android:textStyle="bold"
         android:layout_marginTop="32dp"
         android:layout_centerInParent="true"
         android:textAllCaps="false"
@@ -63,6 +80,7 @@
         android:layout_below="@+id/registerButton"
         android:onClick="openSettings"
         android:layout_marginTop="32dp"
+        android:textStyle="bold"
         android:layout_centerInParent="true"
         android:textAllCaps="false"
         android:textAppearance="?android:attr/textAppearanceMedium"
