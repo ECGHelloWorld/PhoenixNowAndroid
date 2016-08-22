@@ -185,12 +185,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public void setText(String message){
-        final Toast toast = new Toast(getApplicationContext());
+
         final String m=message;
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-               toast.makeText(getApplicationContext(), m, Toast.LENGTH_LONG).show();
+               Toast.makeText(activity.getApplicationContext(), m, Toast.LENGTH_LONG).show();
             }
         });
     }
