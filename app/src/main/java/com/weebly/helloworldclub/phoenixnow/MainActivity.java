@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
             lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, mLocationListener);
-            TextView welcometext=(TextView)findViewById(R.id.welcometext);
+            TextView welcometext=(TextView)findViewById(R.id.signintext);
             welcometext.setText("Welcome, " + memory.getEmail()+"!");
         }
     }
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
             lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, mLocationListener);
-            TextView welcometext=(TextView)findViewById(R.id.welcometext);
+            TextView welcometext=(TextView)findViewById(R.id.signintext);
             welcometext.setText("Welcome, " + memory.getEmail()+"!");
         }
     }
@@ -111,11 +111,15 @@ public class MainActivity extends AppCompatActivity {
         if(Settings.Secure.getString(this.getApplicationContext().getContentResolver(),Settings.Secure.ALLOW_MOCK_LOCATION).equals("1")){
             Toast.makeText(getApplicationContext(),"Please turn off location spoofing",Toast.LENGTH_LONG).show();
         }else {
-            MyThread thread=new MyThread();
+            MyThread thread=new MyThread(activity);
             thread.start();
         }
     }
     public class MyThread extends Thread{
+        private MainActivity activity;
+        public MyThread(MainActivity activity){
+            this.activity = activity;
+        }
         @Override
         public void run(){
             BackEnd backend = new BackEnd();
@@ -181,12 +185,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public void setText(String message){
-        final TextView space=(TextView)findViewById(R.id.signintext);
+        final Toast toast = new Toast(getApplicationContext());
         final String m=message;
-        this.runOnUiThread(new Runnable() {
+        activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                space.setText(m);
+               toast.makeText(getApplicationContext(), m, Toast.LENGTH_LONG).show();
             }
         });
     }
