@@ -35,6 +35,7 @@ import javax.net.ssl.SSLPeerUnverifiedException;
  * Created by Justin on 3/1/2016.
  */
 public class RegisterActivity extends AppCompatActivity {
+    private Toast toast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,7 +102,11 @@ public class RegisterActivity extends AppCompatActivity {
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getBaseContext(),message,Toast.LENGTH_SHORT).show();
+                if(toast!=null){
+                    toast.cancel();
+                }
+                toast=Toast.makeText(getBaseContext(),message,Toast.LENGTH_SHORT);
+                toast.show();
             }
         });
     }

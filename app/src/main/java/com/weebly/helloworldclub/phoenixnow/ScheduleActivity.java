@@ -16,6 +16,7 @@ import org.json.JSONObject;
  * Created by Justin on 5/25/2016.
  */
 public class ScheduleActivity extends AppCompatActivity {
+    private Toast toast;
     @Override
     public void onCreate(Bundle savedinstancestance){
         super.onCreate(savedinstancestance);
@@ -144,7 +145,11 @@ public class ScheduleActivity extends AppCompatActivity {
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getBaseContext(),message,Toast.LENGTH_SHORT).show();
+                if(toast!=null){
+                    toast.cancel();
+                }
+                toast=Toast.makeText(getBaseContext(),message,Toast.LENGTH_SHORT);
+                toast.show();
             }
         });
     }

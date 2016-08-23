@@ -21,6 +21,7 @@ import java.net.ProtocolException;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.security.cert.Certificate;
 
 /**
  * Created by hunai on 3/4/2016.
@@ -93,6 +94,8 @@ public class BackEnd {
             URL url = new URL(baseUrl + endpoint);
             HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
             Memory memory = new Memory();
+            urlConnection.setConnectTimeout(5000);
+            urlConnection.setReadTimeout(5000);
             urlConnection.setDoOutput(true);
             urlConnection.setRequestMethod("POST");
             urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");

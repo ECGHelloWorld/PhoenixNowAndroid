@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
     private static MainActivity activity;
+    private Toast toast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onFailure(String message) {
                             try {
                                 JSONObject json=new JSONObject(message);
-                                setText(json.getString("message"));
+                                makeToast(json.getString("message"));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -168,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                 } else {
-                    setText("Couldn't resolve location in 5 seconds: try again");
+                    makeToast("Couldn't resolve location in 5 seconds: try again");
                 }
             } else {
                 makeToast("Please enable location");
@@ -179,17 +180,11 @@ public class MainActivity extends AppCompatActivity {
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getBaseContext(),message,Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-    public void setText(String message){
-
-        final String m=message;
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-               Toast.makeText(activity.getApplicationContext(), m, Toast.LENGTH_LONG).show();
+                if(toast!=null){
+                    toast.cancel();
+                }
+                toast=Toast.makeText(getBaseContext(),message,Toast.LENGTH_SHORT);
+                toast.show();
             }
         });
     }

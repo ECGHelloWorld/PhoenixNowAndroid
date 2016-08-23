@@ -18,6 +18,7 @@ import org.json.JSONObject;
  * Created by Justin on 3/1/2016.
  */
 public class LoginActivity extends AppCompatActivity{
+    private Toast toast;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -58,7 +59,11 @@ public class LoginActivity extends AppCompatActivity{
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getBaseContext(),message,Toast.LENGTH_SHORT).show();
+                if(toast!=null){
+                    toast.cancel();
+                }
+                toast=Toast.makeText(getBaseContext(),message,Toast.LENGTH_SHORT);
+                toast.show();
             }
         });
     }
