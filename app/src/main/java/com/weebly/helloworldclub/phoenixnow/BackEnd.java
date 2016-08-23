@@ -20,6 +20,8 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
+import javax.net.ssl.HttpsURLConnection;
+
 /**
  * Created by hunai on 3/4/2016.
  */
@@ -42,7 +44,7 @@ public class BackEnd {
     private Switch wednesday;
     private Switch thursday;
     private Switch friday;
-    private static final String baseUrl="http://chadali.me/api";
+    private static final String baseUrl="https://phoenixnow.me/api";
 
     public BackEnd(EditText emailEditText, EditText passwordEditText,
                    EditText firstNameEditText,EditText lastNameEditText, EditText gradeEditText) {
@@ -89,7 +91,7 @@ public class BackEnd {
         try {
             json.put("code",Code.CODE);
             URL url = new URL(baseUrl + endpoint);
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
             Memory memory = new Memory();
             urlConnection.setDoOutput(true);
             urlConnection.setRequestMethod("POST");
