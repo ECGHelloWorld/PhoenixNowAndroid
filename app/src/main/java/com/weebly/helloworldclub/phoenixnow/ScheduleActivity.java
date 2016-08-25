@@ -33,7 +33,6 @@ public class ScheduleActivity extends AppCompatActivity {
             @Override
             public void onSuccess(String schedule) {
                 try {
-                    Log.d("Schedule",schedule);
                     JSONObject json=new JSONObject(schedule);
                     setSwitches(json);
                     if(json.getBoolean("verified")) {

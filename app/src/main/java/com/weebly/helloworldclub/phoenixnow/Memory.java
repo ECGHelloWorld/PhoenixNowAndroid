@@ -48,7 +48,6 @@ public class Memory{
             db.createNewFile();
             FileOutputStream fos=new FileOutputStream(db);
             String string=email+" "+token;
-            Log.d("string",string);
             fos.write(string.getBytes("UTF8"));
             fos.close();
         } catch (FileNotFoundException e) {
@@ -77,7 +76,6 @@ public class Memory{
             byte[] buffer=new byte[fis.available()];
             fis.read(buffer);
             String string=new String(buffer,"UTF8");
-            Log.d("reading",string);
             String email=string.substring(0,string.indexOf(" "));
             return email;
         } catch (FileNotFoundException e) {

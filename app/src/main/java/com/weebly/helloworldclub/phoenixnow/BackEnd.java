@@ -112,7 +112,6 @@ public class BackEnd {
                 }
             }
             String body="";
-            Log.d("Code",Integer.toString(code));
             if (code == 200) {
                 InputStream is = new BufferedInputStream(urlConnection.getInputStream());
                 BufferedReader br = new BufferedReader(new InputStreamReader(is));
