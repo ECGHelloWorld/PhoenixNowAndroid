@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/titlepagebackground"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/titlepagebackground">
+
     <ImageView
+        android:id="@+id/officiallogo"
         android:layout_width="wrap_content"
         android:layout_height="150dp"
-        android:src="@drawable/officiallogo"
-        android:id="@+id/officiallogo"
-        android:layout_marginTop="24dp"/>
+        android:layout_marginTop="24dp"
+        android:src="@drawable/officiallogo" />
+
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
@@ -20,85 +22,86 @@
         android:textColor="@android:color/white"
         android:textSize="40sp"
         android:textStyle="bold" />
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Email"
-    android:layout_centerHorizontal="true"
-    android:layout_below="@+id/title"
-    android:textSize="20sp"
-    android:textStyle="bold"
-    android:textColor="@color/transparentblack"
-    android:id="@+id/emailtextview"
-    android:paddingTop="30dp" />
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:textSize="20sp"
-        android:inputType="textEmailAddress"
-        android:textColor="@color/transparentblack"
-        android:background="@drawable/roundbutton"
-        android:layout_below="@+id/emailtextview"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/emailedittext"
-        android:gravity="center"
 
-        />
     <TextView
+        android:id="@+id/emailtextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Password"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:textColor="@color/transparentblack"
-        android:layout_below="@+id/emailedittext"
-        android:paddingTop="20dp"
+        android:layout_below="@+id/title"
         android:layout_centerHorizontal="true"
-        android:id="@+id/passwordtextview"
-        />
+        android:paddingTop="30dp"
+        android:text="Email"
+        android:textColor="@color/transparentblack"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <EditText
+        android:id="@+id/emailedittext"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/emailtextview"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/roundbutton"
+        android:gravity="center"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/transparentblack"
+        android:textSize="20sp"
+
+        />
+
+    <TextView
+        android:id="@+id/passwordtextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/emailedittext"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="20dp"
+        android:text="Password"
+        android:textColor="@color/transparentblack"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/passwordedittext"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_below="@+id/passwordtextview"
-        android:background="@drawable/roundbutton"
         android:layout_centerHorizontal="true"
-        android:id="@+id/passwordedittext"
-        android:textSize="20sp"
-        android:textColor="@color/transparentblack"
-        android:password="true"
+        android:background="@drawable/roundbutton"
         android:gravity="center"
-        />
+        android:password="true"
+        android:textColor="@color/transparentblack"
+        android:textSize="20sp" />
 
     <TextView
+        android:id="@+id/space"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:id="@+id/space"
-        android:layout_below="@id/passwordedittext"
-        />
+        android:layout_below="@id/passwordedittext" />
+
     <Button
-        android:layout_width="wrap_content"
         android:id="@+id/submit_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="20dp"
         android:layout_below="@+id/space"
-        android:background="@drawable/roundbutton"
         android:layout_centerHorizontal="true"
+        android:background="@drawable/roundbutton"
+        android:onClick="loginClick"
+        android:padding="20dp"
         android:text="Submit"
         android:textAllCaps="false"
-        android:textSize="20sp"
-        android:onClick="loginClick"
-        />
+        android:textSize="20sp" />
 
     <TextView
+        android:id="@+id/forgotpassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/submit_button"
-        android:layout_marginTop="30dp"
-        android:textStyle="bold"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
         android:gravity="center"
+        android:onClick="forgotPassword"
         android:text="Forgot Password?"
-
-        />
+        android:textStyle="bold" />
 
 </RelativeLayout>
