@@ -79,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void forgotPassword(View view) {
 
-        Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse("https://phoenixnow.me/requestreset"));
+        Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse("https://phoenixnow.org/requestreset"));
         startActivity(browserIntent);
         Toast.makeText(getApplicationContext(), "Redirecting to the PhoenixNow website for password reset.", Toast.LENGTH_LONG).show();
 

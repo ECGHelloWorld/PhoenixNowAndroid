@@ -45,7 +45,7 @@ public class BackEnd {
     private Switch wednesday;
     private Switch thursday;
     private Switch friday;
-    private static final String baseUrl="https://phoenixnow.me/api";
+    private static final String baseUrl="https://phoenixnow.org/api";
 
     public BackEnd(EditText emailEditText, EditText passwordEditText,
                    EditText firstNameEditText,EditText lastNameEditText, EditText gradeEditText) {

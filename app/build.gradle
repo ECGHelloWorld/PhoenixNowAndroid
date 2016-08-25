@@ -7,7 +7,7 @@ android {
         releaseSigning {
             keyAlias 'key'
             keyPassword '123jasfl1215696halvjLAFLKJ%(@>f'
-            storeFile file('C:/Users/Justin/Documents/AppKeys/PhoenixNow/key.jks')
+            storeFile file('C:/Users/Justin/Documents/PhoenixNow/AppKeys/PhoenixNow/key.jks')
             storePassword '123jasfl1215696halvjLAFLKJ%(@>f'
         }
     }
@@ -15,7 +15,7 @@ android {
     buildToolsVersion "23.0.2"
     defaultConfig {
         applicationId "com.weebly.helloworldclub.phoenixnow"
-        minSdkVersion 15
+        minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"

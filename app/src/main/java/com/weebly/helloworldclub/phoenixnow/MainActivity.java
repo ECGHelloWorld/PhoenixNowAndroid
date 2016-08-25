@@ -155,42 +155,36 @@ public class MainActivity extends AppCompatActivity {
                 makeToast("Signing in...");
                 Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 Long start = System.currentTimeMillis();
-                boolean searching = true;
-                boolean found = true;
-                while (location == null || Math.abs(location.getTime() - System.currentTimeMillis()) > 1000 && searching) {
+                while (location == null || Math.abs(location.getTime() - System.currentTimeMillis()) > 1000) {
                     location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                     if (System.currentTimeMillis() - start > 5000) {
-                        searching = false;
-                        found = false;
+                        makeToast("Could not resolve location in 5 seconds: try again");
+                        return;
                     }
                 }
-                if (found) {
-                    double longitude = location.getLongitude();
-                    double latitude = location.getLatitude();
-                    backend.signIn(latitude, longitude, new BackEnd.BackEndListener() {
-                        @Override
-                        public void onSuccess(String data) {
-                            makeToast("Signed in!");
-                        }
+                double longitude = location.getLongitude();
+                double latitude = location.getLatitude();
+                backend.signIn(latitude, longitude, new BackEnd.BackEndListener() {
+                    @Override
+                    public void onSuccess(String data) {
+                        makeToast("Signed in!");
+                    }
 
-                        @Override
-                        public void onFailure(String message) {
-                            try {
-                                JSONObject json=new JSONObject(message);
-                                makeToast(json.getString("message"));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                    @Override
+                    public void onFailure(String message) {
+                        try {
+                            JSONObject json=new JSONObject(message);
+                            makeToast(json.getString("message"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
+                    }
 
-                        @Override
-                        public void onCancelled() {
-                            makeToast("Server request timed out");
-                        }
-                    });
-                } else {
-                    makeToast("Couldn't resolve location in 5 seconds: try again");
-                }
+                    @Override
+                    public void onCancelled() {
+                        makeToast("Server request timed out");
+                    }
+                });
             } else {
                 makeToast("Please enable location");
             }
@@ -203,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
                 if(toast!=null){
                     toast.cancel();
                 }
-                toast=Toast.makeText(getBaseContext(),message,Toast.LENGTH_SHORT);
+                toast=Toast.makeText(getBaseContext(),message,Toast.LENGTH_LONG);
                 toast.show();
             }
         });
