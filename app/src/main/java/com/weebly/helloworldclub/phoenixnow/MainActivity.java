@@ -63,13 +63,14 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.titlepage);
         } else {
             setContentView(R.layout.homepage);
+            TextView welcometext=(TextView)findViewById(R.id.signintext);
+            String text="Welcome, " + memory.getEmail()+"!";
+            welcometext.setText(text);
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
                 return;
             }
-            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, mLocationListener);
-            TextView welcometext=(TextView)findViewById(R.id.signintext);
-            welcometext.setText("Welcome, " + memory.getEmail()+"!");
-        }
+            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, mLocationListener);}
     }
     public static MainActivity getActivity(){
         return activity;
@@ -91,12 +92,30 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.titlepage);
         } else {
             setContentView(R.layout.homepage);
+            TextView welcometext=(TextView)findViewById(R.id.signintext);
+            String text="Welcome, " + memory.getEmail()+"!";
+            welcometext.setText(text);
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
             lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, mLocationListener);
-            TextView welcometext=(TextView)findViewById(R.id.signintext);
-            welcometext.setText("Welcome, " + memory.getEmail()+"!");
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,String permissions[],int[] grantResults){
+        switch (requestCode) {
+            case 1: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, mLocationListener);
+                } else {
+                    makeToast("This app needs location permission to function");
+                }
+                return;
+            }
         }
     }
     public void loginActivity(View view) {
@@ -124,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
         public void run(){
             BackEnd backend = new BackEnd();
             if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
                 return;
             }
             boolean gps_enabled = false;

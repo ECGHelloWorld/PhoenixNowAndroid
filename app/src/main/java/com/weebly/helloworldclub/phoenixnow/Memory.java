@@ -57,12 +57,12 @@ public class Memory{
         }
     }
     public void logoutUser(){
-        String filePath = MainActivity.getActivity().getFilesDir().getPath().toString() + "/db.txt";
+        String filePath = MainActivity.getActivity().getFilesDir().getPath() + "/db.txt";
         File db=new File(filePath);
         db.delete();
     }
     public boolean loggedIn(){
-        String filePath = MainActivity.getActivity().getFilesDir().getPath().toString() + "/db.txt";
+        String filePath = MainActivity.getActivity().getFilesDir().getPath() + "/db.txt";
         File db=new File(filePath);
         return db.exists();
 //        return false;
@@ -70,7 +70,7 @@ public class Memory{
 
     public String getEmail(){
         try {
-            String filePath = MainActivity.getActivity().getFilesDir().getPath().toString() + "/db.txt";
+            String filePath = MainActivity.getActivity().getFilesDir().getPath() + "/db.txt";
             File db=new File(filePath);
             FileInputStream fis=new FileInputStream(db);
             byte[] buffer=new byte[fis.available()];
@@ -86,7 +86,7 @@ public class Memory{
     }
     public String getToken(){
         try {
-            String filePath = MainActivity.getActivity().getFilesDir().getPath().toString() + "/db.txt";
+            String filePath = MainActivity.getActivity().getFilesDir().getPath() + "/db.txt";
             File db=new File(filePath);
             FileInputStream fis=new FileInputStream(db);
             byte[] buffer=new byte[fis.available()];
