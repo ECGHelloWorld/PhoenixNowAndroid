@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/titlepagebackground"
     android:orientation="vertical"
-    tools:context="com.weebly.helloworldclub.phoenixnow.MainActivity">
+    tools:context="com.helloworldclub.phoenixnow.MainActivity">
 
     <ImageView
         android:id="@+id/logoimage"

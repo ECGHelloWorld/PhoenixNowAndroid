@@ -50,8 +50,10 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
             android:text="This app was created and is maintained by ECG Hello World App Club, 2016. \n
-Website and App Development: Nicolas Day, Justin Kerr, Varun Nair, and Ali Chaudhry \n
+App Development: Justin Kerr and Varun Nair \n
+Web Development: Ali Chaudhry and Nick Day \n
 Artwork Designed by: Calder Brown  \n
+Special thanks to Ms. Kiser, Mrs. Kidd, and Mrs. Webster for supporting PhoenixNow \n
 Contact the club or the dev team for bug reports, questions, or assistance at \n
 http://helloworldclub.weebly.com \n
 or email helloworldappclub@gmail.com"

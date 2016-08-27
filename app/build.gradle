@@ -14,11 +14,11 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
     defaultConfig {
-        applicationId "com.weebly.helloworldclub.phoenixnow"
-        minSdkVersion 14
+        applicationId "com.helloworldclub.phoenixnow"
+        minSdkVersion 7
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.0.2"
     }
     buildTypes {
         release {
