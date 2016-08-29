@@ -10,7 +10,9 @@
         android:layout_height="200dp"
         android:layout_marginTop="24dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/officiallogo" />
+        android:src="@drawable/officiallogo"
+        android:onClick="harambe"
+        />
 
     <TextView
         android:id="@+id/title"
