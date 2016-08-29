@@ -27,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
             ImageView i=(ImageView)findViewById(R.id.logoimage);
             i.setImageResource(R.drawable.harambe);
         }
+        if(harambeClicks>21){
+            TextView t=(TextView)findViewById(R.id.title);
+            t.setText("RIP Harambe 1999-2016");
+        }
     }
     LocationManager lm;
     LocationListener mLocationListener=new LocationListener() {
