@@ -1,6 +1,7 @@
 package com.weebly.helloworldclub.phoenixnow;
 
 import android.Manifest;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -9,6 +10,8 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +24,7 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
     private int harambeClicks=0;
+    private int notificationID=0;
     public void harambe(View view){
         harambeClicks++;
         if(harambeClicks>11){
@@ -79,6 +83,16 @@ public class MainActivity extends AppCompatActivity {
     }
     public static MainActivity getActivity(){
         return activity;
+    }
+    public void makeNotification(String title, String text){
+        NotificationCompat.Builder builder=new NotificationCompat.Builder(activity);
+        builder.setContentTitle(title);
+        builder.setContentText(text);
+        builder.setTicker(title);
+        builder.setSmallIcon(R.drawable.officiallogo);
+        NotificationManager manager=(NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        manager.notify(notificationID,builder.build());
+        notificationID++;
     }
     @Override
     protected void onStop(){
@@ -172,14 +186,16 @@ public class MainActivity extends AppCompatActivity {
                 backend.signIn(latitude, longitude, new BackEnd.BackEndListener() {
                     @Override
                     public void onSuccess(String data) {
-                        makeToast("Signed in!");
+                        makeNotification("Signin succeeded","You have successfully been signed in");
+                        makeToast("You have successfully been signed in");
                     }
 
                     @Override
                     public void onFailure(String message) {
                         try {
                             JSONObject json=new JSONObject(message);
-                            makeToast(json.getString("message"));
+                            makeNotification("Signin failed",json.getString("message"));
+                            makeToast("Failed: "+json.getString("message"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
