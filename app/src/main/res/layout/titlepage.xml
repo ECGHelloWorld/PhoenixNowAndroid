@@ -1,126 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/titlepagebackground"
-    android:orientation="vertical"
-    tools:context="com.weebly.helloworldclub.phoenixnow.MainActivity">
 
-    <ImageView
-        android:id="@+id/logoimage"
+    >
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="24dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/officiallogo" />
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/logoimage"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:paddingTop="8dp"
-        android:text="PhoenixNow"
-        android:textColor="#800000"
-        android:textSize="48sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/slogan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:paddingTop="8dp"
-        android:text="Your gateway to all things ECG."
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_below="@id/slogan"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/roundbutton"
-        android:onClick="loginActivity"
-        android:text="Log In"
-        android:textAllCaps="false"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@android:color/black"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/registerButton"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_below="@id/loginButton"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/roundbutton"
-        android:onClick="registerActivity"
-        android:text="Register"
-        android:textAllCaps="false"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@android:color/black"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/settingsbutton"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_below="@+id/registerButton"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/roundbutton"
-        android:onClick="openSettings"
-        android:text="Settings"
-        android:textAllCaps="false"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@android:color/black"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
 
-    <!--   <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="50dp"
-           android:layout_alignParentBottom="true"
-           android:background="@color/colorPrimaryDark"
-           android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/logoimage"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="fitCenter"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/officiallogo" />
 
-           <Button
-               android:id="@+id/loginButton"
-               android:layout_width="0dp"
-               android:layout_height="wrap_content"
-               android:layout_weight="1"
-               android:background="?android:attr/selectableItemBackground"
-               android:text="Log In"
-               android:textAllCaps="false"
-               android:textAppearance="?android:attr/textAppearanceMedium"
-               android:textColor="@android:color/white"
-               android:textStyle="bold" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PhoenixNow"
+                android:id="@+id/title"
+                android:paddingTop="8dp"
+                android:layout_centerInParent="true"
+                android:textSize="48sp"
+                android:textColor="#ffffff"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:layout_below="@id/logoimage" />
 
-           <Button
-               android:id="@+id/registerButton"
-               android:layout_width="0dp"
-               android:layout_height="wrap_content"
-               android:layout_weight="1"
-               android:background="?android:attr/selectableItemBackground"
-               android:text="Register"
-               android:textAllCaps="false"
-               android:textAppearance="?android:attr/textAppearanceMedium"
-               android:textColor="@android:color/white"
-               android:textStyle="bold" />
+            <TextView
+                android:id="@+id/slogan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:layout_below="@id/title"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:text="Your gateway to all things ECG."
+                android:textColor="@android:color/white" />
 
-       </LinearLayout> -->
+            <Button
+                android:id="@+id/loginButton"
+                android:onClick="loginActivity"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:background="@drawable/roundbutton"
+                android:layout_below="@id/slogan"
+                android:text="Log In"
+                android:layout_marginTop="32dp"
+                android:layout_centerInParent="true"
+                android:textStyle="bold"
+                android:textAllCaps="false"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/black"
+                />
+            <Button
+                android:id="@+id/registerButton"
+                android:onClick="registerActivity"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:background="@drawable/roundbutton"
+                android:layout_below="@id/loginButton"
+                android:text="Register"
+                android:textStyle="bold"
+                android:layout_marginTop="32dp"
+                android:layout_centerInParent="true"
+                android:textAllCaps="false"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/black"
+                />
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:id="@+id/settingsbutton"
+                android:layout_below="@+id/registerButton"
+                android:onClick="openSettings"
+                android:layout_marginTop="32dp"
+                android:textStyle="bold"
+                android:layout_centerInParent="true"
+                android:textAllCaps="false"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/black"
+                android:background="@drawable/roundbutton"
+                android:text="Settings"
+                />
 
+        </RelativeLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

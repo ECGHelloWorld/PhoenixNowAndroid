@@ -1,107 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/titlepagebackground">
+    android:background="@drawable/titlepagebackground"
 
-    <ImageView
-        android:id="@+id/officiallogo"
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:layout_marginTop="24dp"
-        android:src="@drawable/officiallogo" />
-
-    <TextView
-        android:id="@+id/title"
+    >
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/officiallogo"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:text="Login"
-        android:textColor="@android:color/white"
-        android:textSize="40sp"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/emailtextview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
-        android:layout_centerHorizontal="true"
-        android:paddingTop="30dp"
-        android:text="Email"
-        android:textColor="@color/transparentblack"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/officiallogo"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/officiallogo" />
 
-    <EditText
-        android:id="@+id/emailedittext"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_below="@+id/emailtextview"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/roundbutton"
-        android:gravity="center"
-        android:inputType="textEmailAddress"
-        android:textColor="@color/transparentblack"
-        android:textSize="20sp"
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/officiallogo"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="Login"
+                android:textColor="@android:color/white"
+                android:textSize="40sp"
+                android:textStyle="bold" />
 
-        />
+            <TextView
+                android:id="@+id/emailtextview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="30dp"
+                android:text="Email"
+                android:textColor="@color/transparentblack"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/passwordtextview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/emailedittext"
-        android:layout_centerHorizontal="true"
-        android:paddingTop="20dp"
-        android:text="Password"
-        android:textColor="@color/transparentblack"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+            <EditText
+                android:id="@+id/emailedittext"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/emailtextview"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/roundbutton"
+                android:gravity="center"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/transparentblack"
+                android:textSize="20sp"
 
-    <EditText
-        android:id="@+id/passwordedittext"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_below="@+id/passwordtextview"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/roundbutton"
-        android:gravity="center"
-        android:password="true"
-        android:textColor="@color/transparentblack"
-        android:textSize="20sp" />
+                />
 
-    <TextView
-        android:id="@+id/space"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_below="@id/passwordedittext" />
+            <TextView
+                android:id="@+id/passwordtextview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/emailedittext"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="20dp"
+                android:text="Password"
+                android:textColor="@color/transparentblack"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/submit_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/space"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/roundbutton"
-        android:onClick="loginClick"
-        android:padding="20dp"
-        android:text="Submit"
-        android:textAllCaps="false"
-        android:textSize="20sp" />
+            <EditText
+                android:id="@+id/passwordedittext"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/passwordtextview"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/roundbutton"
+                android:gravity="center"
+                android:password="true"
+                android:textColor="@color/transparentblack"
+                android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/forgotpassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/submit_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:gravity="center"
-        android:onClick="forgotPassword"
-        android:text="Forgot Password?"
-        android:textStyle="bold" />
+            <TextView
+                android:id="@+id/space"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_below="@id/passwordedittext" />
+
+            <Button
+                android:id="@+id/submit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/space"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/roundbutton"
+                android:onClick="loginClick"
+                android:padding="20dp"
+                android:text="Submit"
+                android:textAllCaps="false"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/forgotpassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/submit_button"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:onClick="forgotPassword"
+                android:text="Forgot Password?"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>
