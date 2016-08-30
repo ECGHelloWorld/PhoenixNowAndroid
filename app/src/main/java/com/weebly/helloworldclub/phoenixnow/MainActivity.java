@@ -1,10 +1,13 @@
 package com.weebly.helloworldclub.phoenixnow;
 
 import android.Manifest;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -22,6 +25,9 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
     private int harambeClicks=0;
     private int notificationID=0;
@@ -38,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     }
     LocationManager lm;
     LocationListener mLocationListener=new LocationListener() {
+
         @Override
         public void onLocationChanged(Location location) {
 
@@ -58,7 +65,10 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+
     private static MainActivity activity;
+    TextView tx;
+    Typeface custom_font;
     private Toast toast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,12 +76,17 @@ public class MainActivity extends AppCompatActivity {
         activity=this;
         SettingsActivity settings=new SettingsActivity();
         settings.initializeSettings(getApplicationContext());
+        custom_font = Typeface.createFromAsset(getAssets(), "fonts/CinzelDecorative.ttf");
         Memory memory=new Memory();
         lm=(LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (!memory.loggedIn()) {
             setContentView(R.layout.titlepage);
+            tx = (TextView) findViewById(R.id.title);
+            tx.setTypeface(custom_font);
         } else {
             setContentView(R.layout.homepage);
+            tx = (TextView) findViewById(R.id.title);
+            tx.setTypeface(custom_font);
             TextView welcometext=(TextView)findViewById(R.id.signintext);
             String text="Welcome, " + memory.getEmail()+"!";
             welcometext.setText(text);
@@ -80,16 +95,33 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
             lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, mLocationListener);}
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, mLocationListener);
+        TextView welcometext = (TextView) findViewById(R.id.signintext);
+        welcometext.setText("Welcome, " + memory.getEmail() + "!");
     }
+
+
     public static MainActivity getActivity(){
         return activity;
     }
-    public void makeNotification(String title, String text){
+
+    public void makeNotification(String title, String text, Boolean ifSuccessful) {
         NotificationCompat.Builder builder=new NotificationCompat.Builder(activity);
         builder.setContentTitle(title);
         builder.setContentText(text);
         builder.setTicker(title);
         builder.setSmallIcon(R.drawable.officiallogo);
+        if (ifSuccessful) {
+            builder.setVibrate(new long[]{0, 750, 100, 750});
+            builder.setLights(Color.GREEN, 3000, 3000);
+        } else if (!ifSuccessful) {
+            builder.setVibrate(new long[]{0, 500});
+            builder.setLights(Color.GREEN, 3000, 3000);
+        }
+        builder.setPriority(Notification.PRIORITY_MAX);
         NotificationManager manager=(NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         manager.notify(notificationID,builder.build());
         notificationID++;
@@ -107,10 +139,15 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         Memory memory=new Memory();
         lm=(LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        custom_font = Typeface.createFromAsset(getAssets(), "fonts/CinzelDecorative.ttf");
         if (!memory.loggedIn()) {
             setContentView(R.layout.titlepage);
+            tx = (TextView) findViewById(R.id.title);
+            tx.setTypeface(custom_font);
         } else {
             setContentView(R.layout.homepage);
+            tx = (TextView) findViewById(R.id.title);
+            tx.setTypeface(custom_font);
             TextView welcometext=(TextView)findViewById(R.id.signintext);
             String text="Welcome, " + memory.getEmail()+"!";
             welcometext.setText(text);
@@ -186,15 +223,15 @@ public class MainActivity extends AppCompatActivity {
                 backend.signIn(latitude, longitude, new BackEnd.BackEndListener() {
                     @Override
                     public void onSuccess(String data) {
-                        makeNotification("Signin succeeded","You have successfully been signed in");
-                        makeToast("You have successfully been signed in");
+                        makeNotification("PhoenixNow", "Successful Check-in!", true);
+                        makeToast("You have successfully been checked-in");
                     }
 
                     @Override
                     public void onFailure(String message) {
                         try {
                             JSONObject json=new JSONObject(message);
-                            makeNotification("Signin failed",json.getString("message"));
+                            makeNotification("PhoenixNow", "Unsuccessful Check-in, please try again.", false);
                             makeToast("Failed: "+json.getString("message"));
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -220,6 +257,18 @@ public class MainActivity extends AppCompatActivity {
                 }
                 toast=Toast.makeText(getBaseContext(),message,Toast.LENGTH_LONG);
                 toast.show();
+                Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void setText(String message) {
+
+        final String m = message;
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(activity.getApplicationContext(), m, Toast.LENGTH_LONG).show();
             }
         });
     }

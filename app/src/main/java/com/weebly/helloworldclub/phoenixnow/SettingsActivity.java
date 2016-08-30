@@ -2,11 +2,13 @@ package com.weebly.helloworldclub.phoenixnow;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,10 +20,15 @@ import java.io.IOException;
  * Created by Justin on 5/22/2016.
  */
 public class SettingsActivity extends AppCompatActivity {
+    TextView tx;
+    Typeface custom_font;
     @Override
     protected void onCreate(Bundle savedinstancestance){
         super.onCreate(savedinstancestance);
         setContentView(R.layout.settings);
+        custom_font = Typeface.createFromAsset(getAssets(), "fonts/CinzelDecorative.ttf");
+        tx = (TextView) findViewById(R.id.title);
+        tx.setTypeface(custom_font);
         File settings=new File(getApplicationContext().getFilesDir().getPath()+"/settings.txt");
             try {
                 FileInputStream fis = new FileInputStream(settings);

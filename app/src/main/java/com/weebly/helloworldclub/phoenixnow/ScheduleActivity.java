@@ -1,5 +1,6 @@
 package com.weebly.helloworldclub.phoenixnow;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.JsonReader;
@@ -17,10 +18,16 @@ import org.json.JSONObject;
  */
 public class ScheduleActivity extends AppCompatActivity {
     private Toast toast;
+    TextView tx;
+    Typeface custom_font;
     @Override
     public void onCreate(Bundle savedinstancestance){
         super.onCreate(savedinstancestance);
         setContentView(R.layout.schedule);
+
+        custom_font = Typeface.createFromAsset(getAssets(), "fonts/CinzelDecorative.ttf");
+        tx = (TextView) findViewById(R.id.title);
+        tx.setTypeface(custom_font);
         final TextView submitted=(TextView)findViewById(R.id.submittedschedule);
         final TextView verified=(TextView)findViewById(R.id.verifiedschedule);
         final Switch m=(Switch) findViewById(R.id.mswitch);

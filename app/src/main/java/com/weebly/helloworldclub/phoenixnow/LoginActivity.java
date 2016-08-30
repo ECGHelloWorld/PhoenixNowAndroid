@@ -2,6 +2,7 @@ package com.weebly.helloworldclub.phoenixnow;
 
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -19,10 +20,15 @@ import org.json.JSONObject;
  * Created by Justin on 3/1/2016.
  */
 public class LoginActivity extends AppCompatActivity {
+    TextView tx;
+    Typeface custom_font;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        custom_font = Typeface.createFromAsset(getAssets(), "fonts/CinzelDecorative.ttf");
+        tx = (TextView) findViewById(R.id.title);
+        tx.setTypeface(custom_font);
     }
 
     public void loginClick(View view) {

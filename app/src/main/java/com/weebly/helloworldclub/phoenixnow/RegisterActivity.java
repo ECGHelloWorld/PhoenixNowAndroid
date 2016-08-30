@@ -1,6 +1,7 @@
 package com.weebly.helloworldclub.phoenixnow;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.JsonReader;
@@ -36,10 +37,15 @@ import javax.net.ssl.SSLPeerUnverifiedException;
  */
 public class RegisterActivity extends AppCompatActivity {
     private Toast toast;
+    TextView tx;
+    Typeface custom_font;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
+        custom_font = Typeface.createFromAsset(getAssets(), "fonts/CinzelDecorative.ttf");
+        tx = (TextView) findViewById(R.id.title);
+        tx.setTypeface(custom_font);
     }
 
     public void registerClick(View view){
