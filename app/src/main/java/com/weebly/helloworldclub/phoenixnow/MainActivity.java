@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         activity=this;
         SettingsActivity settings=new SettingsActivity();
-        settings.initializeSettings(getApplicationContext());
         custom_font = Typeface.createFromAsset(getAssets(), "fonts/CinzelDecorative.ttf");
         Memory memory=new Memory();
         lm=(LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -94,13 +93,8 @@ public class MainActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
                 return;
             }
-            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, mLocationListener);}
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
+            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, mLocationListener);
         }
-        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, mLocationListener);
-        TextView welcometext = (TextView) findViewById(R.id.signintext);
-        welcometext.setText("Welcome, " + memory.getEmail() + "!");
     }
 
 
@@ -109,22 +103,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void makeNotification(String title, String text, Boolean ifSuccessful) {
-        NotificationCompat.Builder builder=new NotificationCompat.Builder(activity);
-        builder.setContentTitle(title);
-        builder.setContentText(text);
-        builder.setTicker(title);
-        builder.setSmallIcon(R.drawable.officiallogo);
-        if (ifSuccessful) {
-            builder.setVibrate(new long[]{0, 750, 100, 750});
-            builder.setLights(Color.GREEN, 3000, 3000);
-        } else if (!ifSuccessful) {
-            builder.setVibrate(new long[]{0, 500});
-            builder.setLights(Color.GREEN, 3000, 3000);
+        Memory memory=new Memory();
+        if(memory.getCheckinNotification()) {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(activity);
+            builder.setContentTitle(title);
+            builder.setContentText(text);
+            builder.setTicker(title);
+            builder.setSmallIcon(R.drawable.officiallogo);
+            if (ifSuccessful) {
+                builder.setVibrate(new long[]{0, 750, 100, 750});
+                builder.setLights(Color.GREEN, 3000, 3000);
+            } else if (!ifSuccessful) {
+                builder.setVibrate(new long[]{0, 500});
+                builder.setLights(Color.GREEN, 3000, 3000);
+            }
+            builder.setPriority(Notification.PRIORITY_MAX);
+            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            manager.notify(notificationID, builder.build());
+            notificationID++;
         }
-        builder.setPriority(Notification.PRIORITY_MAX);
-        NotificationManager manager=(NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-        manager.notify(notificationID,builder.build());
-        notificationID++;
     }
     @Override
     protected void onStop(){
@@ -257,7 +254,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 toast=Toast.makeText(getBaseContext(),message,Toast.LENGTH_LONG);
                 toast.show();
-                Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
             }
         });
     }

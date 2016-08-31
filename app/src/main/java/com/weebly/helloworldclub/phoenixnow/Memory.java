@@ -100,4 +100,39 @@ public class Memory{
         }
         return null;
     }
+    public void setCheckinNotification(boolean b){
+        try {
+            String filePath = MainActivity.getActivity().getFilesDir().getPath() + "/checkinNotification.txt";
+            File db = new File(filePath);
+            db.createNewFile();
+            FileOutputStream fos = new FileOutputStream(db);
+            String string =Boolean.toString(b);
+            fos.write(string.getBytes("UTF8"));
+            fos.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+    public boolean getCheckinNotification() {
+        boolean b=true;
+        try {
+            String filePath = MainActivity.getActivity().getFilesDir().getPath() + "/checkinNotification.txt";
+            File db = new File(filePath);
+            if(!db.exists()){
+                setCheckinNotification(true);
+            }
+            FileInputStream fis = new FileInputStream(db);
+            byte[] buffer = new byte[fis.available()];
+            fis.read(buffer);
+            String string = new String(buffer, "UTF8");
+            if(string.equals("true")){
+                b=true;
+            }else{
+                b=false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return b;
+    }
 }

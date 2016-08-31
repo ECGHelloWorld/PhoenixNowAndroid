@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -22,6 +23,8 @@ import java.io.IOException;
 public class SettingsActivity extends AppCompatActivity {
     TextView tx;
     Typeface custom_font;
+    Switch checkinNotification;
+    Memory memory=new Memory();
     @Override
     protected void onCreate(Bundle savedinstancestance){
         super.onCreate(savedinstancestance);
@@ -29,33 +32,15 @@ public class SettingsActivity extends AppCompatActivity {
         custom_font = Typeface.createFromAsset(getAssets(), "fonts/CinzelDecorative.ttf");
         tx = (TextView) findViewById(R.id.title);
         tx.setTypeface(custom_font);
-        File settings=new File(getApplicationContext().getFilesDir().getPath()+"/settings.txt");
-            try {
-                FileInputStream fis = new FileInputStream(settings);
-                byte[] buffer=new byte[fis.available()];
-                fis.read(buffer);
-                fis.close();
-                String string=new String(buffer,"UTF8");
-                //set switches on or off based on memory here
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }catch(java.io.IOException e){
-                e.printStackTrace();
-            }
-        //add listeners to handle switches
+        checkinNotification=(Switch)findViewById(R.id.settings_checkinNotificationSwitch);
+        checkinNotification.setChecked(memory.getCheckinNotification());
     }
-    public void initializeSettings(Context context){
-        File settings=new File(context.getApplicationContext().getFilesDir().getPath()+"/settings.txt");
-        if(!settings.exists()) {
-            try {
-                settings.createNewFile();
-//                FileOutputStream fos=new FileOutputStream(settings);
-//                String string="rememberLogin:off ";//initialize switches
-//                fos.write(string.getBytes());
-//                fos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    public void onPause(){
+        super.onPause();
+        if(checkinNotification.isChecked()){
+            memory.setCheckinNotification(true);
+        }else{
+            memory.setCheckinNotification(false);
         }
     }
 }
