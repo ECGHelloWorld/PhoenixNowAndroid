@@ -205,13 +205,14 @@ public class MainActivity extends AppCompatActivity {
             } catch (Exception ex) {
             }
             if (gps_enabled) {
-                makeToast("Signing in...");
+                makeToast("Signing in...please wait");
                 Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 Long start = System.currentTimeMillis();
                 while (location == null || Math.abs(location.getTime() - System.currentTimeMillis()) > 1000) {
                     location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                    if (System.currentTimeMillis() - start > 5000) {
-                        makeToast("Could not resolve location in 5 seconds: try again");
+                    if (System.currentTimeMillis() - start > 10) {
+                        makeNotification("PhoenixNow","Could not resolve location",false);
+                        makeToast("Could not resolve location in 10 seconds: try again. If you are indoors please move outside to improve signal strength.");
                         return;
                     }
                 }
