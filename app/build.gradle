@@ -17,8 +17,8 @@ android {
         applicationId "com.weebly.helloworldclub.phoenixnow"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 7
-        versionName "2.1.1"
+        versionCode 10
+        versionName "2.1.4"
     }
     buildTypes {
         release {
