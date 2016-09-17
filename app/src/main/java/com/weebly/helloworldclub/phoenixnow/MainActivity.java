@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
             TextView welcometext=(TextView)findViewById(R.id.signintext);
             String text="Welcome, " + memory.getEmail()+"!";
             welcometext.setText(text);
-
+            getHistory();
             //check if user has permitted PhoenixNow to use location, and open a request dialog if not
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
@@ -223,6 +223,7 @@ public class MainActivity extends AppCompatActivity {
                         //signin successful, display message
                         makeNotification("PhoenixNow", "Successful Check-in!", true);
                         makeToast("You have successfully been checked-in");
+                        getHistory();
                     }
 
                     @Override
@@ -285,40 +286,42 @@ public class MainActivity extends AppCompatActivity {
 
     //user pressed history
     public void history(View view){
-        BackEnd b=new BackEnd();
+        getHistory();
+    }
+
+    public void getHistory() {
+        BackEnd b = new BackEnd();
         b.getCheckins(new BackEnd.BackEndListener() {
             @Override
             public void onSuccess(String data) {
                 try {
-                    JSONObject json=new JSONObject(data);
-                    String toptext="Monday | Tuesday | Wednesday | Thursday | Friday";
-                    String bottomtext="";
-                    if(json.getString("monday").equals("present")){
-                        bottomtext=bottomtext+"Present |";
-                    }else{
-                        bottomtext=bottomtext+"       |";
+                    JSONObject json = new JSONObject(data);
+                    if (json.getString("monday").equals("present")) {
+                        TextView mondayCell = (TextView) findViewById(R.id.monday_history_cell);
+                        setSignInText(mondayCell);
+                    } else {
+
                     }
-                    if(json.getString("tuesday").equals("present")){
-                        bottomtext=bottomtext+" Present |";
-                    }else{
-                        bottomtext=bottomtext+"         |";
+                    if (json.getString("tuesday").equals("present")) {
+                        TextView tuesdayCell = (TextView) findViewById(R.id.tuesday_history_cell);
+                        setSignInText(tuesdayCell);
+                    } else {
                     }
-                    if(json.getString("wednesday").equals("present")){
-                        bottomtext=bottomtext+"    Present     |";
-                    }else{
-                        bottomtext=bottomtext+"                |";
+                    if (json.getString("wednesday").equals("present")) {
+                        TextView wednesdayCell = (TextView) findViewById(R.id.wednesday_history_cell);
+                        setSignInText(wednesdayCell);
+                    } else {
                     }
-                    if(json.getString("thursday").equals("present")){
-                        bottomtext=bottomtext+"  Present  |";
-                    }else{
-                        bottomtext=bottomtext+"           |";
+                    if (json.getString("thursday").equals("present")) {
+                        TextView thursdayCell = (TextView) findViewById(R.id.thursday_history_cell);
+                        setSignInText(thursdayCell);
+                    } else {
                     }
-                    if(json.getString("friday").equals("present")){
-                        bottomtext=bottomtext+" Present";
-                    }else{
-                        bottomtext=bottomtext+"        ";
+                    if (json.getString("friday").equals("present")) {
+                        TextView fridayCell = (TextView) findViewById(R.id.friday_history_cell);
+                        setSignInText(fridayCell);
+                    } else {
                     }
-                    setText(toptext+"\n"+bottomtext);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -336,12 +339,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //default method for setting text
-    public void setText(final String text){
+    public void setSignInText(final TextView view) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                TextView t=(TextView)findViewById(R.id.signintext);
-                t.setText(text);
+                view.setText("Present");
             }
         });
     }
