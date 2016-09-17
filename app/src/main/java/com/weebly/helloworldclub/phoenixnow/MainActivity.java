@@ -17,7 +17,6 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -139,26 +138,6 @@ public class MainActivity extends AppCompatActivity {
             }
             //if permission is enabled, begin querying location
             lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, mLocationListener);
-            BackEnd b=new BackEnd();
-            b.getCheckins(new BackEnd.BackEndListener() {
-                @Override
-                public void onSuccess(String data) {
-                    try {
-                        JSONObject json=new JSONObject(data);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFailure(String message) {
-                }
-
-                @Override
-                public void onCancelled() {
-
-                }
-            });
         }
     }
 
@@ -284,18 +263,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //default method for setting textview message
-    public void setText(String message) {
-
-        final String m = message;
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(activity.getApplicationContext(), m, Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
     //user clicked sign out, erase memory and display title page
     public void signOut(View view){
         Memory memory=new Memory();
@@ -314,6 +281,69 @@ public class MainActivity extends AppCompatActivity {
     public void openSchedule(View view){
         Intent intent=new Intent(MainActivity.this,ScheduleActivity.class);
         startActivity(intent);
+    }
+
+    //user pressed history
+    public void history(View view){
+        BackEnd b=new BackEnd();
+        b.getCheckins(new BackEnd.BackEndListener() {
+            @Override
+            public void onSuccess(String data) {
+                try {
+                    JSONObject json=new JSONObject(data);
+                    String toptext="Monday | Tuesday | Wednesday | Thursday | Friday";
+                    String bottomtext="";
+                    if(json.getString("monday").equals("present")){
+                        bottomtext=bottomtext+"Present |";
+                    }else{
+                        bottomtext=bottomtext+"       |";
+                    }
+                    if(json.getString("tuesday").equals("present")){
+                        bottomtext=bottomtext+" Present |";
+                    }else{
+                        bottomtext=bottomtext+"         |";
+                    }
+                    if(json.getString("wednesday").equals("present")){
+                        bottomtext=bottomtext+"    Present     |";
+                    }else{
+                        bottomtext=bottomtext+"                |";
+                    }
+                    if(json.getString("thursday").equals("present")){
+                        bottomtext=bottomtext+"  Present  |";
+                    }else{
+                        bottomtext=bottomtext+"           |";
+                    }
+                    if(json.getString("friday").equals("present")){
+                        bottomtext=bottomtext+" Present";
+                    }else{
+                        bottomtext=bottomtext+"        ";
+                    }
+                    setText(toptext+"\n"+bottomtext);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String message) {
+            }
+
+            @Override
+            public void onCancelled() {
+
+            }
+        });
+    }
+
+    //default method for setting text
+    public void setText(final String text){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TextView t=(TextView)findViewById(R.id.signintext);
+                t.setText(text);
+            }
+        });
     }
 
     //do nothing when back is pressed
