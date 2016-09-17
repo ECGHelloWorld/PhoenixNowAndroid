@@ -36,9 +36,14 @@ import javax.net.ssl.SSLPeerUnverifiedException;
  * Created by Justin on 3/1/2016.
  */
 public class RegisterActivity extends AppCompatActivity {
+    /*
+    This class handles the registration form
+     */
     private Toast toast;
     TextView tx;
     Typeface custom_font;
+
+    //activity started
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,8 +51,11 @@ public class RegisterActivity extends AppCompatActivity {
         custom_font = Typeface.createFromAsset(getAssets(), "fonts/CinzelDecorative.ttf");
         tx = (TextView) findViewById(R.id.title);
         tx.setTypeface(custom_font);
+        TextView space=(TextView)findViewById(R.id.space);
+        space.setText("Pick a password with at least 8 characters");
     }
 
+    //user clicked register, send information to server if valid
     public void registerClick(View view){
         EditText passwordEditText=(EditText)findViewById(R.id.passwordedittext);
         EditText confirmPasswordEditText=(EditText)findViewById(R.id.confirmpasswordedittext);
@@ -55,26 +63,24 @@ public class RegisterActivity extends AppCompatActivity {
         EditText firstNameEditText=(EditText)findViewById(R.id.firstNameEditText);
         EditText lastNameEditText=(EditText)findViewById(R.id.lastNameEditText);
         EditText gradeEditText=(EditText)findViewById(R.id.gradeEditText);
-        final TextView space=(TextView)findViewById(R.id.space);
-        space.setText("Pick a password with at least 8 characters");
         BackEnd backend=new BackEnd(emailEditText,passwordEditText,firstNameEditText,lastNameEditText,gradeEditText);
-        if(confirmPasswordEditText.getText().toString().equals(passwordEditText.getText().toString())&&
-                confirmPasswordEditText.getText().toString().length()>7 &&
-                emailEditText.getText().toString().contains("@guilford.edu") &&
-                !firstNameEditText.getText().toString().equals("")&&
-                !lastNameEditText.getText().toString().equals("")&&
-                gradeEditText.getText().length()>0){
+        if(confirmPasswordEditText.getText().toString().equals(passwordEditText.getText().toString())&&//PW and confirm PW are identical
+                confirmPasswordEditText.getText().toString().length()>7 &&//PW is at least 8 characters
+                emailEditText.getText().toString().contains("@guilford.edu") &&//email includes "guilford.edu"
+                !firstNameEditText.getText().toString().equals("")&&//name is not blank
+                !lastNameEditText.getText().toString().equals("")&&//name is not blank
+                gradeEditText.getText().length()>0){//grade is not blank
             makeToast("Registering...");
-            backend.register(new BackEnd.BackEndListener() {
+            backend.register(new BackEnd.BackEndListener() {//register user
                 @Override
-                public void onSuccess(String data) {
+                public void onSuccess(String data) {//user successfully registered
                     makeToast("Registered!");
                     Intent intent=new Intent(RegisterActivity.this,MainActivity.class);
                     startActivity(intent);
                 }
 
                 @Override
-                public void onFailure(String message) {
+                public void onFailure(String message) {//registration failed
                     try {
                         JSONObject json=new JSONObject(message);
                         setText(json.getString("message"));
@@ -84,26 +90,30 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onCancelled() {
+                public void onCancelled() {//server timed out
                     makeToast("Server request timed out");
                 }
             });
         }
+
+        //toasts handling invalid form information
         if(!confirmPasswordEditText.getText().toString().equals(passwordEditText.getText().toString())){
-            Toast.makeText(getApplicationContext(), "Passwords must match", Toast.LENGTH_LONG).show();
+            makeToast("Passwords must match");
         }else if(confirmPasswordEditText.getText().toString().length()<8){
-            Toast.makeText(getApplicationContext(), "Password must be at least 8 characters", Toast.LENGTH_LONG).show();
+           makeToast("Password must be at least 8 characters");
         }else if(firstNameEditText.getText().toString().equals("")){
-            Toast.makeText(getApplicationContext(), "Please input a first name", Toast.LENGTH_LONG).show();
+            makeToast("Please input a first name");
         }else if(!emailEditText.getText().toString().contains("@guilford.edu")){
-            Toast.makeText(getApplicationContext(), "Please input a guilford email", Toast.LENGTH_LONG).show();
+            makeToast("Please input a guilford email");
         }else if(lastNameEditText.toString().equals("")){
-            Toast.makeText(getApplicationContext(), "Please input a last name", Toast.LENGTH_LONG).show();
+            makeToast("Please input a last name");
         }else if(gradeEditText.getText().length()==0){
-            Toast.makeText(getApplicationContext(), "Please input a grade level", Toast.LENGTH_LONG).show();
+            makeToast("Please input a grade level");
         }
 
     }
+
+    //method for making toasts
     public void makeToast(final String message){
         this.runOnUiThread(new Runnable() {
             @Override
@@ -116,6 +126,8 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+    //method for setting text
     public void setText(String message){
         final TextView space=(TextView)findViewById(R.id.space);
         final String m=message;

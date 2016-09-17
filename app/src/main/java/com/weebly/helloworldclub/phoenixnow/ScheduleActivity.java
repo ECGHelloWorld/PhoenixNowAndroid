@@ -17,26 +17,24 @@ import org.json.JSONObject;
  * Created by Justin on 5/25/2016.
  */
 public class ScheduleActivity extends AppCompatActivity {
+    /*
+    This class handles the form for submitting a schedule to the server
+     */
+
     private Toast toast;
     TextView tx;
     Typeface custom_font;
+
+    //activity created
     @Override
     public void onCreate(Bundle savedinstancestance){
         super.onCreate(savedinstancestance);
         setContentView(R.layout.schedule);
-
         custom_font = Typeface.createFromAsset(getAssets(), "fonts/CinzelDecorative.ttf");
         tx = (TextView) findViewById(R.id.title);
         tx.setTypeface(custom_font);
-        final TextView submitted=(TextView)findViewById(R.id.submittedschedule);
-        final TextView verified=(TextView)findViewById(R.id.verifiedschedule);
-        final Switch m=(Switch) findViewById(R.id.mswitch);
-        final Switch t=(Switch) findViewById(R.id.tswitch);
-        final Switch w=(Switch) findViewById(R.id.wswitch);
-        final Switch r=(Switch) findViewById(R.id.rswitch);
-        final Switch f=(Switch) findViewById(R.id.fswitch);
         BackEnd backend=new BackEnd();
-        backend.getSchedule(new BackEnd.BackEndListener() {
+        backend.getSchedule(new BackEnd.BackEndListener() {//retrieve schedule and set switches to correct position
             @Override
             public void onSuccess(String schedule) {
                 try {
@@ -68,6 +66,8 @@ public class ScheduleActivity extends AppCompatActivity {
             }
         });
     }
+
+    //method for setting switches based on server feedback
     public void setSwitches(final JSONObject json){
         this.runOnUiThread(new Runnable() {
             @Override
@@ -109,6 +109,8 @@ public class ScheduleActivity extends AppCompatActivity {
             }
         });
     }
+
+    //method for setting text
     public void setText(final String message){
         this.runOnUiThread(new Runnable() {
             @Override
@@ -118,6 +120,8 @@ public class ScheduleActivity extends AppCompatActivity {
             }
         });
     }
+
+    //user pressed submit schedule, so send it to the server
     public void register(View view){
         Switch m=(Switch) findViewById(R.id.mswitch);
         Switch t=(Switch) findViewById(R.id.tswitch);
@@ -125,7 +129,7 @@ public class ScheduleActivity extends AppCompatActivity {
         Switch r=(Switch) findViewById(R.id.rswitch);
         Switch f=(Switch) findViewById(R.id.fswitch);
         BackEnd backend=new BackEnd(m,t,w,r,f);
-        backend.sendSchedule(new BackEnd.BackEndListener() {
+        backend.sendSchedule(new BackEnd.BackEndListener() {//send schedule to the server
             @Override
             public void onSuccess(String data) {
                 setText("Schedule sent for approval");
@@ -147,6 +151,8 @@ public class ScheduleActivity extends AppCompatActivity {
             }
         });
     }
+
+    //method for making toasts
     public void makeToast(final String message){
         this.runOnUiThread(new Runnable() {
             @Override

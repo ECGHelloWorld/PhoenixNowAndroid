@@ -41,6 +41,11 @@ import java.nio.ByteBuffer;
  * Created by Justin on 5/22/2016.
  */
 public class Memory{
+    /*
+    This class handles local device files for settings and user logins
+     */
+
+    //commit user to memory
     public void loginUser(String email, String token){
         try {
             String filePath = MainActivity.getActivity().getFilesDir().getPath() + "/db.txt";
@@ -56,11 +61,15 @@ public class Memory{
             e.printStackTrace();
         }
     }
+
+    //delete user from memory
     public void logoutUser(){
         String filePath = MainActivity.getActivity().getFilesDir().getPath() + "/db.txt";
         File db=new File(filePath);
         db.delete();
     }
+
+    //returns true if a user is currently logged in
     public boolean loggedIn(){
         String filePath = MainActivity.getActivity().getFilesDir().getPath() + "/db.txt";
         File db=new File(filePath);
@@ -68,6 +77,7 @@ public class Memory{
 //        return false;
     }
 
+    //return logged in user's email
     public String getEmail(){
         try {
             String filePath = MainActivity.getActivity().getFilesDir().getPath() + "/db.txt";
@@ -84,6 +94,8 @@ public class Memory{
         }
         return null;
     }
+
+    //return logged in user's token
     public String getToken(){
         try {
             String filePath = MainActivity.getActivity().getFilesDir().getPath() + "/db.txt";
@@ -100,6 +112,8 @@ public class Memory{
         }
         return null;
     }
+
+    //set signin notification(setting) to true or false
     public void setCheckinNotification(boolean b){
         try {
             String filePath = MainActivity.getActivity().getFilesDir().getPath() + "/checkinNotification.txt";
@@ -113,6 +127,7 @@ public class Memory{
             e.printStackTrace();
         }
     }
+    //get signin notification setting
     public boolean getCheckinNotification() {
         boolean b=true;
         try {
