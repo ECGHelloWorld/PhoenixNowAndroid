@@ -56,7 +56,6 @@
                 android:inputType="textEmailAddress"
                 android:textColor="@color/transparentblack"
                 android:textSize="20sp"
-
                 />
 
             <TextView

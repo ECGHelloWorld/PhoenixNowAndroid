@@ -187,6 +187,11 @@ public class MainActivity extends AppCompatActivity {
             thread.start();
         }
     }
+
+    public void schedule(View view) {
+        Intent intent = new Intent(MainActivity.this, ScheduleActivity.class);
+        startActivity(intent);
+    }
     public class MyThread extends Thread{
         private MainActivity activity;
         public MyThread(MainActivity activity){
