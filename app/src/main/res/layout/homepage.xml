@@ -1,97 +1,270 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@drawable/titlepagebackground"
     android:layout_height="match_parent"
-    >
-    <ScrollView
+    android:background="@drawable/titlepagebackground">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+        android:layout_height="match_parent">
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/logoimage"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="75dp"
                 android:layout_marginTop="24dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/officiallogo"
                 android:onClick="harambe"
-                />
+                android:scaleType="fitCenter"
+                android:src="@drawable/officiallogo" />
 
             <TextView
-                android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/logoimage"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:paddingTop="8dp"
+                android:layout_below="@+id/logoimage"
                 android:text="PhoenixNow"
-                android:textColor="#ffffff"
-                android:textSize="48sp"
-                android:textStyle="bold" />
+                android:layout_centerHorizontal="true"
+                android:textColor="@android:color/white"
+                android:id="@+id/title"
+                android:textStyle="bold"
+                android:textSize="48dp"
+                android:gravity="center_horizontal" />
 
             <TextView
                 android:id="@+id/signintext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/title"
-                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
                 android:textColor="@android:color/black"
-                android:textSize="15sp"
-                android:layout_centerHorizontal="true" />
+                android:textSize="15sp" />
 
-            <Button
-                android:id="@+id/signinbutton"
-                android:layout_width="200dp"
-                android:layout_height="40dp"
-                android:layout_below="@+id/signintext"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/roundbutton"
-                android:onClick="signIn"
-                android:text="Check-in" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/signintext"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/signoutbutton"
-                android:layout_width="200dp"
-                android:layout_height="40dp"
-                android:layout_below="@+id/signinbutton"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/roundbutton"
-                android:onClick="signOut"
-                android:text="Log Out" />
+                    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/signinbutton"
+                        android:layout_width="0dp"
+                        android:layout_height="125dp"
+                        android:onClick="signIn"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:elevation="5dp"
+                        android:padding="5dp"
+                        card_view:cardBackgroundColor="#F0EAD6"
+                        card_view:cardCornerRadius="7dp">
 
-            <Button
-                android:layout_width="200dp"
-                android:layout_height="40dp"
-                android:id="@+id/schedulebutton"
-                android:layout_below="@+id/signoutbutton"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/roundbutton"
-                android:onClick="openSchedule"
-                android:text="Schedule" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/settingsbutton"
-                android:layout_width="200dp"
-                android:layout_height="40dp"
-                android:layout_below="@id/schedulebutton"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/roundbutton"
-                android:onClick="openSettings"
-                android:text="Settings" />
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="16dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/checkinimage" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="#94800000"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="Check-In"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:textColor="#F0EAD6"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/schedulebutton"
+                        android:layout_width="0dp"
+                        android:layout_height="125dp"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:onClick="openSchedule"
+                        android:elevation="5dp"
+                        android:padding="5dp"
+                        card_view:cardBackgroundColor="#F0EAD6"
+                        card_view:cardCornerRadius="7dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="16dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/scheduleimage" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:background="#94800000"
+                                android:text="Schedule"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:textColor="#F0EAD6"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/historybutton"
+                        android:layout_width="0dp"
+                        android:layout_height="125dp"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:elevation="5dp"
+                        android:padding="5dp"
+                        card_view:cardBackgroundColor="#F0EAD6"
+                        card_view:cardCornerRadius="7dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="16dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/history" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="History"
+                                android:background="#94800000"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:textColor="#F0EAD6"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/settingsbutton"
+                        android:layout_width="0dp"
+                        android:layout_height="125dp"
+                        android:layout_margin="10dp"
+                        android:onClick="openSettings"
+                        android:layout_weight="1"
+                        android:elevation="5dp"
+                        android:padding="5dp"
+                        card_view:cardBackgroundColor="#F0EAD6"
+                        card_view:cardCornerRadius="7dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="16dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/settings" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:background="#94800000"
+                                android:text="Settings"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:textColor="#F0EAD6"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/signoutbutton"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
+                        android:elevation="5dp"
+                        android:onClick="signOut"
+                        android:layout_marginRight="40dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginTop="40dp"
+                        android:padding="5dp"
+                        card_view:cardBackgroundColor="#F0EAD6"
+                        card_view:cardCornerRadius="7dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="Log Out"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:textColor="#94800000"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
+
+            </LinearLayout>
+
 
         </RelativeLayout>
     </ScrollView>
