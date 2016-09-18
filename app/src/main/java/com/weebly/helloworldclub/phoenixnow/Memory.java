@@ -150,4 +150,55 @@ public class Memory{
         }
         return b;
     }
+
+    //sets the time of reminder notifications
+    public void setNotificationTime(int hour, int minute) {
+        try {
+            String filePath = MainActivity.getActivity().getFilesDir().getPath() + "/notificationtime.txt";
+            File db = new File(filePath);
+            db.createNewFile();
+            FileOutputStream fos = new FileOutputStream(db);
+            String string = Integer.toString(hour) + " " + Integer.toString(minute);
+            fos.write(string.getBytes("UTF8"));
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // returns the hour component of the time to be reminded
+    public int getNotificationHour() {
+        try {
+            String filePath = MainActivity.getActivity().getFilesDir().getPath() + "/notificationtime.txt";
+            File db = new File(filePath);
+            FileInputStream fis = new FileInputStream(db);
+            byte[] buffer = new byte[fis.available()];
+            fis.read(buffer);
+            String string = new String(buffer, "UTF8");
+            int hour = Integer.valueOf(string.substring(0, string.indexOf(" ")));
+            return hour;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (java.io.IOException e) {
+        }
+        return 2;
+    }
+
+    // returns the minute component of the time to be reminded
+    public int getNotificationMinute() {
+        try {
+            String filePath = MainActivity.getActivity().getFilesDir().getPath() + "/notificationtime.txt";
+            File db = new File(filePath);
+            FileInputStream fis = new FileInputStream(db);
+            byte[] buffer = new byte[fis.available()];
+            fis.read(buffer);
+            String string = new String(buffer, "UTF8");
+            int minute = Integer.valueOf(string.substring(string.indexOf(" ") + 1));
+            return minute;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (java.io.IOException e) {
+        }
+        return 0;
+    }
 }

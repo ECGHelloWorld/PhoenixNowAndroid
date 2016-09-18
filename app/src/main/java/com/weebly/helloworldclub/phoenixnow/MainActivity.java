@@ -233,6 +233,7 @@ public class MainActivity extends AppCompatActivity {
                             JSONObject json=new JSONObject(message);
                             makeNotification("PhoenixNow", "Unsuccessful Check-in, please try again.", false);
                             makeToast("Failed: "+json.getString("message"));
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -263,7 +264,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
     //user clicked sign out, erase memory and display title page
     public void signOut(View view){
         Memory memory=new Memory();
