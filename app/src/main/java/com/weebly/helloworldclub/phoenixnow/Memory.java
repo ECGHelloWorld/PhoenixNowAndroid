@@ -201,4 +201,36 @@ public class Memory{
         }
         return 0;
     }
+
+    //sets the time of reminder notifications
+    public void setCheckedInStatus(boolean checkedInStatus) {
+        try {
+            String filePath = MainActivity.getActivity().getFilesDir().getPath() + "/checkinstatus.txt";
+            File db = new File(filePath);
+            db.createNewFile();
+            FileOutputStream fos = new FileOutputStream(db);
+            String string = Boolean.toString(checkedInStatus);
+            fos.write(string.getBytes("UTF8"));
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean getCheckedInStatus() {
+        try {
+            String filePath = MainActivity.getActivity().getFilesDir().getPath() + "/checkinstatus.txt";
+            File db = new File(filePath);
+            FileInputStream fis = new FileInputStream(db);
+            byte[] buffer = new byte[fis.available()];
+            fis.read(buffer);
+            String string = new String(buffer, "UTF8");
+            boolean isCheckedIn = Boolean.valueOf(string);
+            return isCheckedIn;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (java.io.IOException e) {
+        }
+        return false;
+    }
 }

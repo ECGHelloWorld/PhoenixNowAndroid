@@ -1,8 +1,11 @@
 package com.weebly.helloworldclub.phoenixnow;
 
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -22,6 +25,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Calendar;
 
 /**
  * Created by Justin on 5/22/2016.
@@ -62,7 +66,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
         setReminder.setEnabled(true);
-
+        // initializing reminder button listener
         setReminder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,10 +76,12 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
+    //creating dialog with default settings if the user has not selected any
+    // and with the saved settings if the user has selected it
     protected Dialog onCreateDialog(int id) {
         if (id == 0) {
             if (memory.getNotificationMinute() == 0 && memory.getNotificationHour() == 2) {
-                return new TimePickerDialog(SettingsActivity.this, timePickerListener, hour_x, minute_x, false);
+                return new TimePickerDialog(SettingsActivity.this, timePickerListener, 12, 0, false);
             } else {
                 return new TimePickerDialog(SettingsActivity.this, timePickerListener, memory.getNotificationHour(), memory.getNotificationMinute(), false);
             }
@@ -83,6 +89,7 @@ public class SettingsActivity extends AppCompatActivity {
         return null;
     }
 
+    // Changing memory when user selects a new time
     protected TimePickerDialog.OnTimeSetListener timePickerListener = new TimePickerDialog.OnTimeSetListener() {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -90,6 +97,7 @@ public class SettingsActivity extends AppCompatActivity {
             minute_x = minute;
             memory.setNotificationTime(hour_x, minute_x);
             Log.d("Notification Time", String.valueOf(memory.getNotificationHour() + " " + memory.getNotificationMinute()));
+            startNotificationService();
         }
     };
 
@@ -115,4 +123,19 @@ public class SettingsActivity extends AppCompatActivity {
             setReminder.setTextColor(Color.GRAY);
         }
     }
+
+    public void startNotificationService() {
+        Calendar calendar = Calendar.getInstance();
+        Memory memory = new Memory();
+        calendar.set(Calendar.HOUR_OF_DAY, memory.getNotificationHour());
+        calendar.set(Calendar.MINUTE, memory.getNotificationMinute());
+
+        Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+    }
+
 }

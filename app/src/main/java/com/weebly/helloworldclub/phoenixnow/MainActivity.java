@@ -1,8 +1,10 @@
 package com.weebly.helloworldclub.phoenixnow;
 
 import android.Manifest;
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,6 +19,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,7 +29,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     /*
@@ -34,12 +39,11 @@ public class MainActivity extends AppCompatActivity {
      */
 
 
-
-    private int notificationID=0;//used for creating notifications
+    private int notificationID = 0;//used for creating notifications
 
     //objects to handle gps services
     LocationManager lm;
-    LocationListener mLocationListener=new LocationListener() {
+    LocationListener mLocationListener = new LocationListener() {
 
         @Override
         public void onLocationChanged(Location location) {
@@ -70,18 +74,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activity=this;
+        activity = this;
     }
 
     //static method for getting current instance of activity
-    public static MainActivity getActivity(){
+    public static MainActivity getActivity() {
         return activity;
     }
 
     //default method for making notification with specified title and text body
     public void makeNotification(String title, String text, Boolean ifSuccessful) {
-        Memory memory=new Memory();
-        if(memory.getCheckinNotification()) {
+        Memory memory = new Memory();
+        if (memory.getCheckinNotification()) {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(activity);
             builder.setContentTitle(title);
             builder.setContentText(text);
@@ -103,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
     //activity has paused
     @Override
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
@@ -114,11 +118,11 @@ public class MainActivity extends AppCompatActivity {
 
     //activity has resumed from pause
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/CinzelDecorative.ttf");
-        Memory memory=new Memory();
-        lm=(LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Memory memory = new Memory();
+        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (!memory.loggedIn()) {//if user has not already logged in, show the title page
             setContentView(R.layout.titlepage);
             tx = (TextView) findViewById(R.id.title);
@@ -127,8 +131,8 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.homepage);
             tx = (TextView) findViewById(R.id.title);
             tx.setTypeface(custom_font);
-            TextView welcometext=(TextView)findViewById(R.id.signintext);
-            String text="Welcome, " + memory.getEmail()+"!";
+            TextView welcometext = (TextView) findViewById(R.id.signintext);
+            String text = "Welcome, " + memory.getEmail() + "!";
             welcometext.setText(text);
             getHistory();
             //check if user has permitted PhoenixNow to use location, and open a request dialog if not
@@ -138,12 +142,21 @@ public class MainActivity extends AppCompatActivity {
             }
             //if permission is enabled, begin querying location
             lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, mLocationListener);
+
+            if (memory.getNotificationHour() != 2 && memory.getNotificationMinute() != 0) {
+                String weekDay;
+                SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.getDefault());
+
+                Calendar calendar = Calendar.getInstance();
+                weekDay = dayFormat.format(calendar.getTime());
+                startNotifications(weekDay);
+            }
         }
     }
 
     //callback for dialog requesting permission for location
     @Override
-    public void onRequestPermissionsResult(int requestCode,String permissions[],int[] grantResults){
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case 1: {
                 // If request is cancelled, the result arrays are empty.
@@ -159,34 +172,40 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
     //start loginactivity if user clicked login
     public void loginActivity(View view) {
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
     }
+
     //start registeractivity if user clicked register
     public void registerActivity(View view) {
         Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
         startActivity(intent);
     }
+
     //user clicked sign in
     public void signIn(View view) {
         //reject if location spoofing is enabled
-        if(Settings.Secure.getString(this.getApplicationContext().getContentResolver(),Settings.Secure.ALLOW_MOCK_LOCATION).equals("1")){
-            Toast.makeText(getApplicationContext(),"Please turn off location spoofing",Toast.LENGTH_LONG).show();
-        }else {//if location spoofing is off, begin a new sign in thread
-            MyThread thread=new MyThread(activity);
+        if (Settings.Secure.getString(this.getApplicationContext().getContentResolver(), Settings.Secure.ALLOW_MOCK_LOCATION).equals("1")) {
+            Toast.makeText(getApplicationContext(), "Please turn off location spoofing", Toast.LENGTH_LONG).show();
+        } else {//if location spoofing is off, begin a new sign in thread
+            MyThread thread = new MyThread(activity);
             thread.start();
         }
     }
+
     //sign in thread
-    public class MyThread extends Thread{
+    public class MyThread extends Thread {
         private MainActivity activity;
-        public MyThread(MainActivity activity){
+
+        public MyThread(MainActivity activity) {
             this.activity = activity;
         }
+
         @Override
-        public void run(){
+        public void run() {
             BackEnd backend = new BackEnd();//instantiate backend (server communication) object
             //check location permission yet again
             if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -208,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
                 while (location == null || Math.abs(location.getTime() - System.currentTimeMillis()) > 1000) {
                     location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                     if (System.currentTimeMillis() - start > 10000) {//10 seconds elapses, cancel signin and popup message
-                        makeNotification("PhoenixNow","Could not resolve location",false);
+                        makeNotification("PhoenixNow", "Could not resolve location", false);
                         makeToast("Could not resolve location in 10 seconds: try again. If you are indoors please move outside to improve signal strength.");
                         return;
                     }
@@ -230,9 +249,9 @@ public class MainActivity extends AppCompatActivity {
                     public void onFailure(String message) {
                         //signin failed, display error message
                         try {
-                            JSONObject json=new JSONObject(message);
+                            JSONObject json = new JSONObject(message);
                             makeNotification("PhoenixNow", "Unsuccessful Check-in, please try again.", false);
-                            makeToast("Failed: "+json.getString("message"));
+                            makeToast("Failed: " + json.getString("message"));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -252,43 +271,45 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //default method for creating toasts
-    public void makeToast(final String message){
+    public void makeToast(final String message) {
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if(toast!=null){
+                if (toast != null) {
                     toast.cancel();
                 }
-                toast=Toast.makeText(getBaseContext(),message,Toast.LENGTH_LONG);
+                toast = Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG);
                 toast.show();
             }
         });
     }
+
     //user clicked sign out, erase memory and display title page
-    public void signOut(View view){
-        Memory memory=new Memory();
+    public void signOut(View view) {
+        Memory memory = new Memory();
         memory.logoutUser();
         Intent intent = new Intent(MainActivity.this, MainActivity.class);
         startActivity(intent);
     }
 
     //user clicked settings, start settings activity
-    public void openSettings(View view){
-        Intent intent=new Intent(MainActivity.this,SettingsActivity.class);
+    public void openSettings(View view) {
+        Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
         startActivity(intent);
     }
 
     //user clicked schedule, start schedule activity
-    public void openSchedule(View view){
-        Intent intent=new Intent(MainActivity.this,ScheduleActivity.class);
+    public void openSchedule(View view) {
+        Intent intent = new Intent(MainActivity.this, ScheduleActivity.class);
         startActivity(intent);
     }
 
     //user pressed history
-    public void history(View view){
+    public void history(View view) {
         getHistory();
     }
 
+    // Returns values of present for each day the user is here in the table
     public void getHistory() {
         BackEnd b = new BackEnd();
         b.getCheckins(new BackEnd.BackEndListener() {
@@ -338,6 +359,52 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // Store the value of check-in for entered date
+    public void startNotifications(final String today) {
+        String weekDay;
+        SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.getDefault());
+
+        Calendar calendar = Calendar.getInstance();
+        weekDay = dayFormat.format(calendar.getTime());
+
+        if (weekDay.trim().toLowerCase() == "monday"
+                || weekDay.trim().toLowerCase() == "tuesday"
+                || weekDay.trim().toLowerCase() == "wednesday"
+                || weekDay.trim().toLowerCase() == "thursday"
+                || weekDay.trim().toLowerCase() == "friday") {
+            BackEnd b = new BackEnd();
+            b.getCheckins(new BackEnd.BackEndListener() {
+                @Override
+                public void onSuccess(String data) {
+                    try {
+                        JSONObject json = new JSONObject(data);
+                        if (json.getString(today).equals("present")) {
+                            new Memory().setCheckedInStatus(true);
+                            Log.d("Notifications", "Notifications will appear");
+                        } else {
+                            new Memory().setCheckedInStatus(false);
+                            Log.d("Notifications", "No notifications");
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(String message) {
+                }
+
+                @Override
+                public void onCancelled() {
+
+                }
+            });
+        } else {
+            new Memory().setCheckedInStatus(true);
+        }
+        startNotificationService(true);
+    }
+
     //default method for setting text
     public void setSignInText(final TextView view) {
         runOnUiThread(new Runnable() {
@@ -348,9 +415,23 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void startNotificationService(Boolean isUserCheckedInToday) {
+        Calendar calendar = Calendar.getInstance();
+        Memory memory = new Memory();
+        calendar.set(Calendar.HOUR_OF_DAY, memory.getNotificationHour());
+        calendar.set(Calendar.MINUTE, memory.getNotificationMinute());
+
+        Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 21600000, pendingIntent);
+    }
+
     //do nothing when back is pressed
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
 
     }
 }
