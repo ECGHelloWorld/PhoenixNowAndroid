@@ -204,6 +204,7 @@ public class BackEnd {
                 JSONObject json = new JSONObject();
                 json.put("token", memory.getToken());
                 String date=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+                Log.d("CurrentDate", date);
                 json.put("date",date);
                 post(listener, "/getcheckins", json);
             } catch(org.json.JSONException e){
