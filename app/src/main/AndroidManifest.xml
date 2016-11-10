@@ -85,8 +85,8 @@
         <receiver android:name=".NotificationReceiver" />
 
         <activity
-            android:name=".SettingsActivity2"
-            android:label="@string/title_activity_settings2"></activity>
+            android:name=".HistoryActivity"
+            android:label="HistoryActivity" />
     </application>
 
 </manifest>

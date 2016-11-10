@@ -38,41 +38,42 @@ public class SettingsActivity extends AppCompatActivity {
     TextView tx;
     Typeface custom_font;
     Switch checkinNotification;
-    Memory memory=new Memory();
+    Memory memory = new Memory();
     Toolbar toolbar;
-    Button setReminder;
+    //    Button setReminder;
     int hour_x, minute_x;
+
     @Override
-    protected void onCreate(Bundle savedinstancestance){
+    protected void onCreate(Bundle savedinstancestance) {
         super.onCreate(savedinstancestance);
         setContentView(R.layout.settings);
         custom_font = Typeface.createFromAsset(getAssets(), "fonts/CinzelDecorative.ttf");
         tx = (TextView) findViewById(R.id.titletext);
         tx.setTypeface(custom_font);
-        setReminder = (Button) findViewById(R.id.setreminder_button);
+//        setReminder = (Button) findViewById(R.id.setreminder_button);
         //initialize switches
-        checkinNotification=(Switch)findViewById(R.id.settings_checkinNotificationSwitch);
+        checkinNotification = (Switch) findViewById(R.id.settings_checkinNotificationSwitch);
         checkinNotification.setChecked(memory.getCheckinNotification());
         // initializing switch listener to activate and deactivate button
-        checkinNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                setReminder.setEnabled(isChecked);
-                if (!isChecked) {
-                    setReminder.setTextColor(Color.GRAY);
-                } else {
-                    setReminder.setTextColor(Color.WHITE);
-                }
-            }
-        });
-        setReminder.setEnabled(true);
-        // initializing reminder button listener
-        setReminder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog(0);
-            }
-        });
+//        checkinNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                setReminder.setEnabled(isChecked);
+//                if (!isChecked) {
+//                    setReminder.setTextColor(Color.GRAY);
+//                } else {
+//                    setReminder.setTextColor(Color.WHITE);
+//                }
+//            }
+//        });
+//        setReminder.setEnabled(true);
+//        // initializing reminder button listener
+//        setReminder.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showDialog(0);
+//            }
+//        });
 
     }
 
@@ -102,12 +103,12 @@ public class SettingsActivity extends AppCompatActivity {
     };
 
     //activity paused
-    public void onPause(){
+    public void onPause() {
         super.onPause();
         //commit switch status to memory
-        if(checkinNotification.isChecked()){
+        if (checkinNotification.isChecked()) {
             memory.setCheckinNotification(true);
-        }else{
+        } else {
             memory.setCheckinNotification(false);
         }
     }
@@ -116,26 +117,27 @@ public class SettingsActivity extends AppCompatActivity {
         super.onResume();
         checkinNotification.setChecked(memory.getCheckinNotification());
         if (checkinNotification.isChecked()) {
-            setReminder.setEnabled(true);
-            setReminder.setTextColor(Color.WHITE);
+//            setReminder.setEnabled(true);
+//            setReminder.setTextColor(Color.WHITE);
         } else {
-            setReminder.setEnabled(false);
-            setReminder.setTextColor(Color.GRAY);
+//            setReminder.setEnabled(false);
+//            setReminder.setTextColor(Color.GRAY);
         }
     }
 
     public void startNotificationService() {
-        Calendar calendar = Calendar.getInstance();
-        Memory memory = new Memory();
-        calendar.set(Calendar.HOUR_OF_DAY, memory.getNotificationHour());
-        calendar.set(Calendar.MINUTE, memory.getNotificationMinute());
+//        Calendar calendar = Calendar.getInstance();
+//        Memory memory = new Memory();
+//        calendar.set(Calendar.HOUR_OF_DAY, memory.getNotificationHour());
+//        calendar.set(Calendar.MINUTE, memory.getNotificationMinute());
+//
+//        Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
+//
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+//    }
 
-        Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
-
 }

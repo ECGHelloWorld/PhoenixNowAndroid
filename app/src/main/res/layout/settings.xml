@@ -37,19 +37,19 @@
         android:textColor="@android:color/white"
         android:textSize="20dp" />
 
-    <Button
-        android:id="@+id/setreminder_button"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/settings_checkinNotificationSwitch"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/transparent"
-        android:gravity="center"
-        android:text="Set Daily Reminder"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white" />
+    <!--<Button-->
+    <!--android:id="@+id/setreminder_button"-->
+    <!--android:layout_width="150dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_below="@id/settings_checkinNotificationSwitch"-->
+    <!--android:layout_marginRight="20dp"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:background="@android:color/transparent"-->
+    <!--android:gravity="center"-->
+    <!--android:text="Set Daily Reminder"-->
+    <!--android:textAllCaps="false"-->
+    <!--android:textColor="@android:color/white" />-->
 
 
     <ScrollView

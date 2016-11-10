@@ -135,6 +135,12 @@ public class MainActivity extends AppCompatActivity {
             String text = "Welcome, " + memory.getEmail() + "!";
             welcometext.setText(text);
             getHistory();
+            findViewById(R.id.ripple1).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    signIn(v);
+                }
+            });
             //check if user has permitted PhoenixNow to use location, and open a request dialog if not
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
@@ -143,14 +149,14 @@ public class MainActivity extends AppCompatActivity {
             //if permission is enabled, begin querying location
             lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, mLocationListener);
 
-            if (memory.getNotificationHour() != 2 && memory.getNotificationMinute() != 0) {
-                String weekDay;
-                SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.getDefault());
-
-                Calendar calendar = Calendar.getInstance();
-                weekDay = dayFormat.format(calendar.getTime());
-                startNotifications(weekDay);
-            }
+//            if (memory.getNotificationHour() != 2 && memory.getNotificationMinute() != 0) {
+//                String weekDay;
+//                SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.getDefault());
+//
+//                Calendar calendar = Calendar.getInstance();
+//                weekDay = dayFormat.format(calendar.getTime());
+//                startNotifications(weekDay);
+//            }
         }
     }
 
@@ -306,8 +312,10 @@ public class MainActivity extends AppCompatActivity {
 
     //user pressed history
     public void history(View view) {
-        getHistory();
+        Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+        startActivity(intent);
     }
+
 
     // Returns values of present for each day the user is here in the table
     public void getHistory() {
@@ -402,7 +410,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             new Memory().setCheckedInStatus(true);
         }
-        startNotificationService(true);
+        startNotificationService();
     }
 
     //default method for setting text
@@ -415,19 +423,32 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void startNotificationService(Boolean isUserCheckedInToday) {
-        Calendar calendar = Calendar.getInstance();
-        Memory memory = new Memory();
-        calendar.set(Calendar.HOUR_OF_DAY, memory.getNotificationHour());
-        calendar.set(Calendar.MINUTE, memory.getNotificationMinute());
-
-        Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 21600000, pendingIntent);
+    public void startNotificationService() {
+//        Calendar calendar = Calendar.getInstance();
+//        Memory memory = new Memory();
+//        calendar.set(Calendar.HOUR_OF_DAY, memory.getNotificationHour());
+//        calendar.set(Calendar.MINUTE, memory.getNotificationMinute());
+//
+//        Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
+//
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 21600000, pendingIntent);
     }
+
+//    public void resetCheckInService(){
+//        Calendar calendar = Calendar.getInstance();
+//
+//        calendar.set(Calendar.HOUR_OF_DAY, 1);
+//        calendar.set(Calendar.MINUTE, 0);
+//        Intent intent = new Intent(getApplicationContext(), CheckInResetReceiver.class);
+//
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 101, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+//    }
 
     //do nothing when back is pressed
     @Override

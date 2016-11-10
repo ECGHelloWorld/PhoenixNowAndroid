@@ -56,6 +56,8 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_gravity="center"
+                    android:padding="5dp"
+                    android:gravity="center"
                     android:layout_height="wrap_content">
 
                     <TextView
@@ -107,6 +109,8 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_gravity="center"
+                    android:padding="5dp"
+                    android:gravity="center"
                     android:layout_height="wrap_content">
 
                     <TextView
@@ -177,6 +181,7 @@
                         <com.balysv.materialripple.MaterialRippleLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:id="@+id/ripple1"
                             android:layout_gravity="center">
 
                         <LinearLayout

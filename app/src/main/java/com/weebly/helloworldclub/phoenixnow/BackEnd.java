@@ -114,6 +114,12 @@ public class BackEnd {
         thread.start();
     }
 
+    //method to retrieve past checkin history from the server
+    public void getCheckinHistory(BackEndListener listener, String date) {
+        CheckinHistoryThreadGet thread = new CheckinHistoryThreadGet(listener, date);
+        thread.start();
+    }
+
 
     //default method for posting to an endpoint with JSON data, which handles errors, successes, timeouts, and their associated
     //listener methods
@@ -204,6 +210,29 @@ public class BackEnd {
                 JSONObject json = new JSONObject();
                 json.put("token", memory.getToken());
                 String date=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+                Log.d("CurrentDate", date);
+                json.put("date", date);
+                post(listener, "/getcheckins", json);
+            } catch (org.json.JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public class CheckinHistoryThreadGet extends Thread {
+        private BackEndListener listener;
+        private String date;
+
+        public CheckinHistoryThreadGet(BackEndListener listener, String date) {
+            this.listener = listener;
+            this.date = date;
+        }
+
+        public void run() {
+            try {
+                Memory memory = new Memory();
+                JSONObject json = new JSONObject();
+                json.put("token", memory.getToken());
                 Log.d("CurrentDate", date);
                 json.put("date",date);
                 post(listener, "/getcheckins", json);

@@ -1,6 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/titlepagebackground">
+
+    <ImageView
+        android:id="@+id/logoimage"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_marginTop="24dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/officiallogo" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logoimage"
+        android:text="History"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/white"
+        android:id="@+id/title"
+        android:textStyle="bold"
+        android:textSize="36sp"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/signintext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:text="Viewing History for the Week of: \n \n"
+        android:textColor="@android:color/white"
+        android:textSize="15sp" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_below="@id/signintext"
+        android:id="@+id/historytable"
+        android:gravity="center"
+        android:background="@drawable/tablebackground"
+        android:layout_margin="10dp"
+        android:stretchColumns="*"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textColor="#800000"
+                android:textSize="16sp"
+                android:text="Monday" />
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textColor="#800000"
+                android:textSize="16sp"
+                android:text="Tuesday" />
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textColor="#800000"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:text="Wednesday" />
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:textColor="#800000"
+                android:textSize="16sp"
+                android:text="Thursday" />
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textColor="#800000"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:text="Friday" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="12sp"
+                android:id="@+id/monday_history_cell"
+                android:layout_gravity="center"
+                android:text="-" />
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="12sp"
+                android:id="@+id/tuesday_history_cell"
+                android:layout_gravity="center"
+                android:text="-" />
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/wednesday_history_cell"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:text="-" />
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/thursday_history_cell"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:text="-" />
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/friday_history_cell"
+                android:layout_width="wrap_content"
+                android:textSize="12sp"
+                android:text="-" />
+        </TableRow>
+    </TableLayout>
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/historybutton"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:onClick="changeWeek"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/historytable"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:elevation="5dp"
+        android:padding="5dp"
+        card_view:cardBackgroundColor="#ffffff"
+        card_view:cardCornerRadius="7dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1"
+                android:src="@drawable/history" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Change Week"
+                android:background="#94800000"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 
 </RelativeLayout>
